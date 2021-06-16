@@ -5,7 +5,8 @@ import { makeStyles } from '@material-ui/styles';
 const useStyles = makeStyles((theme) => ({
 	customButton: {
 		margin: '10px',
-		minHeight: '20rem',
+		minHeight: '7rem',
+		height: '10rem',
 		width: '100%',
 		textTransform: 'capitalize',
 		background:
@@ -20,9 +21,16 @@ const useStyles = makeStyles((theme) => ({
 export default function CustomButton(props) {
 	const classes = useStyles();
 	const { children, ...other } = props;
+	const handleClick = (event) => {
+		console.log(event.target.textContent);
+	};
 	return (
 		<Grid item xs={6}>
-			<Button variant="contained" className={classes.customButton}>
+			<Button
+				variant="contained"
+				className={classes.customButton}
+				onClick={handleClick}
+			>
 				<Typography className={classes.buttonText} {...other}>
 					{children}
 				</Typography>
