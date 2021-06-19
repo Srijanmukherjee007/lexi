@@ -1,13 +1,7 @@
 import Head from 'next/head';
-import MainPage from '../src/pages/MainPage';
+import React from 'react';
+import LandingPage from '../src/pages/LandingPage';
 
-export default function Home() {
-	return (
-		<>
-			<Head>
-				<title>Lexi</title>
-			</Head>
-			<MainPage />
-		</>
-	);
+export default function Landing() {
+	return <LandingPage />;
 }

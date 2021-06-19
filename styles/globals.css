@@ -42,3 +42,9 @@ a {
 * {
 	box-sizing: border-box;
 }
+
+.text_svg path {
+	stroke: red;
+	stroke-dasharray: 5000;
+	stroke-dashoffset: 0;
+}
