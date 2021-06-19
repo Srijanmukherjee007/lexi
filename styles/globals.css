@@ -1,5 +1,5 @@
 html {
-	background: linear-gradient(
+	/* background: linear-gradient(
 			124deg,
 			rgba(237, 236, 255, 1) 0%,
 			rgba(123, 163, 181, 1) 47%,
@@ -12,7 +12,7 @@ html {
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-	background-size: cover;
+	background-size: cover; */
 }
 body {
 	padding: 0;
