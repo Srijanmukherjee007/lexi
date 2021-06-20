@@ -21,6 +21,9 @@
     "questions": {
       "via": "quiz",
       "collection": "question"
+    },
+    "base_question": {
+      "type": "string"
     }
   }
 }
