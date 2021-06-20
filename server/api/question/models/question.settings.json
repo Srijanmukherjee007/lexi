@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "questions",
+  "info": {
+    "name": "question",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "question_text": {
+      "type": "text"
+    },
+    "options": {
+      "type": "json"
+    },
+    "quiz": {
+      "via": "questions",
+      "model": "quiz"
+    }
+  }
+}
