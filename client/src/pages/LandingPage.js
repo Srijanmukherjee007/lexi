@@ -9,12 +9,15 @@ import {
 	Slide,
 	Grid,
 	Container,
+	Divider,
+	Button,
 } from '@material-ui/core';
 import myTheme from '../theme';
 import clsx from 'clsx';
 import Link from 'next/link';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-
+import Image from 'next/image';
+import asdhj from '../../utils/11070_1.svg';
 const AnimatedLogo = dynamic(() => import('../components/AnimatedLogo'), {
 	ssr: false,
 });
@@ -23,7 +26,26 @@ const useStyles = makeStyles((theme) => ({
 		position: 'absolute',
 		display: 'flex',
 		justifyContent: 'center',
-		marginTop: '15%',
+		marginTop: '25vh',
+		minWidth: '100%',
+	},
+	sloganContainer: {
+		display: 'flex',
+		justifyContent: 'center',
+		width: 'max-content',
+	},
+	outer: {
+		position: 'absolute',
+		display: 'flex',
+		justifyContent: 'center',
+		marginTop: '51vh', //adjust so that it's just under lexi
+		minWidth: '100%',
+	},
+	buttonContainer: {
+		position: 'absolute',
+		display: 'flex',
+		justifyContent: 'center',
+		marginTop: '67vh',
 		minWidth: '100%',
 	},
 	mixin: {
@@ -44,8 +66,10 @@ const useStyles = makeStyles((theme) => ({
 		// borderLeft: '1px solid white',
 		background: 'transparent',
 		transition: 'background 200ms ease-in-out',
+		color: 'black',
+		cursor: 'pointer',
 		'&:hover': {
-			background: `red`,
+			background: `#b39e81`,
 		},
 	},
 	startDiv: {
@@ -59,20 +83,23 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		width: '100%',
 	},
-	sloganContainer: {
-		position: 'absolute',
-		display: 'flex',
-		justifyContent: 'center',
-		marginTop: '25%', //adjust so that it's just under lexi
-		minWidth: '100%',
-	},
+
 	desc: {
-		color: 'white',
+		color: 'black',
 	},
 	title: {
-		color: 'white',
+		color: 'black',
 		fontSize: '2.5rem',
 		fontWeight: '600',
+	},
+	getStarted: {
+		position: 'absolute',
+		fontSize: 'clamp(1rem, 2vw, 4rem)',
+		textTransform: 'capitalize',
+		background: '#c98620',
+		'&:hover': {
+			background: `#a16b18`,
+		},
 	},
 }));
 
@@ -88,9 +115,9 @@ function HideOnScroll(props) {
 }
 
 export default function LandingPage() {
-	const classes = useStyles(myTheme);
+	const classes = useStyles();
 	return (
-		<html style={{ background: '#0A2239' }}>
+		<html style={{ background: '#f2d6af' }}>
 			<ThemeProvider theme={myTheme}>
 				<HideOnScroll>
 					<AppBar className={classes.appbar} elevation={0}>
@@ -123,10 +150,28 @@ export default function LandingPage() {
 					<div className={classes.logoContainer}>
 						<AnimatedLogo />
 					</div>
-					<div className={classes.sloganContainer}>
-						<h4 className="slogan">Let's talk vocabulary.</h4>
+					<div className={classes.outer}>
+						<div className={classes.sloganContainer}>
+							<p className="slogan">Let's talk vocabulary.</p>
+						</div>
+					</div>
+
+					<div className={classes.buttonContainer}>
+						<Button
+							variant="contained"
+							className={clsx(classes.getStarted, 'getStartedButton')}
+						>
+							Get Started
+						</Button>
 					</div>
 				</div>
+				{/* <Divider
+					variant="middle"
+					style={{
+						border: '1px solid black',
+						marginBottom: '10px',
+					}}
+				/> */}
 				<div className={classes.aboutUs}>
 					<Container>
 						<Grid item xs={12}>
