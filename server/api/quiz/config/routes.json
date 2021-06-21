@@ -47,6 +47,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/quiz/:id/randomquestion",
+      "handler": "quiz.randomquestion",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }
