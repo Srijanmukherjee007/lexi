@@ -165,13 +165,13 @@ export default function LandingPage() {
 						</Button>
 					</div>
 				</div>
-				<Divider
+				{/* <Divider
 					variant="middle"
 					style={{
 						border: '1px solid black',
 						marginBottom: '10px',
 					}}
-				/>
+				/> */}
 				<div className={classes.aboutUs}>
 					<Container>
 						<Grid item xs={12}>
