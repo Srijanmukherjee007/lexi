@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import MainPage from '../src/pages/MainPage';
+import QuizzesListing from '../../src/pages/QuizzesListing';
 
 export default function Home() {
 	return (
@@ -7,7 +7,7 @@ export default function Home() {
 			<Head>
 				<title>Lexi</title>
 			</Head>
-			<MainPage />
+			<QuizzesListing />
 		</>
 	);
 }

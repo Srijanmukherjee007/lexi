@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import CustomButton from '../components/CustomButton';
 import { IconButton, makeStyles } from '@material-ui/core';
 import { Container, Grid } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import DetailsIcon from '@material-ui/icons/Details';
 import clsx from 'clsx';
-import axios from 'axios';
 const buttons = [1, 2, 3, 4];
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -48,7 +47,7 @@ function getRandomInt(max, min) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export default function MainPage() {
+export default function Quiz() {
 	const classes = useStyles();
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [answer, setAnswer] = useState(1);
@@ -61,15 +60,6 @@ export default function MainPage() {
 		setAnswer(getRandomInt(1, 4));
 		setAnswered(false);
 	};
-	async function fetchData() {
-		const [questions, setQuestions] = useState([]);
-		const response = await axios.get(
-			'https://opentdb.com/api.php?amount=10&type=multiple'
-		);
-		const { data } = response;
-		setQuestions(data.results);
-	}
-
 	return (
 		<div className={classes.container}>
 			<div hidden={!answered}>
@@ -82,6 +72,7 @@ export default function MainPage() {
 					Pick a random number
 				</Typography>
 			</div>
+			{/* you can add logic to check if answer is correct, just using random numbers rn*/}
 			<Container className={classes.buttonContainer}>
 				<Grid container spacing={5}>
 					{buttons.map((d, i) => (

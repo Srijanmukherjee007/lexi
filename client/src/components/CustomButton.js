@@ -11,16 +11,18 @@ const useStyles = makeStyles((theme) => ({
 		height: '10rem',
 		width: '100%',
 		textTransform: 'capitalize',
-		background:
-			'linear-gradient(50deg, rgba(2,0,36,1) 0%, rgba(46,46,57,1) 45%, rgba(29,107,130,1) 100%, rgba(0,212,255,1) 100%)',
+		background: '#6f4e37',
+		'&:hover': {
+			background: '#593f2d',
+		},
 	},
 	customButtonCorrect: {
 		background:
-			'linear-gradient(50deg, rgba(230,230,230,1) 0%, rgba(85,255,127,1) 0%, rgba(41,163,53,1) 100%)',
+			'linear-gradient(50deg, rgba(230,230,230,1) 0%, rgba(50,230,94,1) 0%)',
 	},
 	customButtonIncorrect: {
 		background:
-			'linear-gradient(50deg, rgba(230,230,230,1) 0%, rgba(255,95,85,1) 0%, rgba(190,22,22,1) 100%)',
+			'linear-gradient(50deg, rgba(230,230,230,1) 0%, rgba(230,50,50,1) 0%)',
 	},
 	buttonText: {
 		color: '#fceceb',

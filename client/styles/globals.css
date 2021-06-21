@@ -121,3 +121,18 @@ a {
 		transform: translateY(0);
 	}
 }
+
+.slideInTransition-enter {
+	opacity: 0;
+}
+.slideInTransition-enter-active {
+	opacity: 1;
+	transition: opacity 200ms;
+}
+.slideInTransition-exit {
+	opacity: 1;
+}
+.slideInTransition-exit-active {
+	opacity: 0;
+	transition: opacity 200ms;
+}
