@@ -1,88 +1,161 @@
-import React, { useState } from 'react';
-import CustomButton from '../components/CustomButton';
-import { IconButton, makeStyles } from '@material-ui/core';
-import { Container, Grid } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
-import DetailsIcon from '@material-ui/icons/Details';
-import clsx from 'clsx';
+import React, { useState, useEffect } from "react";
+import CustomButton from "../components/CustomButton";
+import { IconButton, makeStyles } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
+import DetailsIcon from "@material-ui/icons/Details";
+import clsx from "clsx";
+import axios from "axios";
+
 const buttons = [1, 2, 3, 4];
 const useStyles = makeStyles((theme) => ({
 	container: {
-		position: 'absolute',
-		minWidth: '100%',
-		height: '100%',
-		display: 'flex',
-		justifyContent: 'center',
-		flexDirection: 'column',
+		position: "absolute",
+		minWidth: "100%",
+		height: "100%",
+		display: "flex",
+		justifyContent: "center",
+		flexDirection: "column",
 	},
 
 	textContainer: {
-		display: 'flex',
-		minHeight: '33%',
-		justifyContent: 'center',
+		display: "flex",
+		minHeight: "33%",
+		justifyContent: "center",
 		// border: '5px solid pink',
 	},
 	question: {
 		fontWeight: 600,
-		fontSize: '3rem',
+		fontSize: "3rem",
 	},
 	buttonContainer: {
-		alignSelf: 'flex-end',
+		alignSelf: "flex-end",
 	},
 	next: {
-		fontSize: '4rem',
-		color: 'black',
-		transform: 'rotate(-90deg)',
+		fontSize: "4rem",
+		color: "black",
+		transform: "rotate(-90deg)",
 	},
 	nextButton: {
-		position: 'absolute',
-		left: '91%',
-		top: '3%',
+		position: "absolute",
+		left: "91%",
+		top: "3%",
 	},
 }));
 
-function getRandomInt(max, min) {
-	min = Math.ceil(min);
-	max = Math.floor(max);
-	return Math.floor(Math.random() * (max - min + 1)) + min;
+function shuffle(array) {
+	let currentIndex = array.length,
+		randomIndex;
+
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex--;
+
+		// And swap it with the current element.
+		[array[currentIndex], array[randomIndex]] = [
+			array[randomIndex],
+			array[currentIndex],
+		];
+	}
+
+	return array;
 }
 
-export default function Quiz() {
+export default function Quiz({ slug }) {
 	const classes = useStyles();
-	const [currentQuestion, setCurrentQuestion] = useState(0);
-	const [answer, setAnswer] = useState(1);
+	const [currentQuestion, setCurrentQuestion] = useState(null);
 	const [answered, setAnswered] = useState(false);
-	const handleClick = (event) => {
+	const [quizDetails, setQuizDetails] = useState(null);
+	const [score, setScore] = useState(0);
+
+	const handleUserAnswer = (event) => {
 		setAnswered(true);
+		if (event.isAnswer) {
+			setScore((prevScore) => prevScore + 1);
+		}
 	};
-	const setNextQuestion = () => {
-		setCurrentQuestion(currentQuestion + 1);
-		setAnswer(getRandomInt(1, 4));
-		setAnswered(false);
+	const setRandomQuestion = () => {
+		setCurrentQuestion(null);
+
+		axios
+			.get(
+				`https://vocabulary-strapi-cms.herokuapp.com/quiz/slug/${slug}/randomquestion`
+			)
+			.then((response) => {
+				const { status, data } = response;
+
+				if (status == 200 && !Object.keys(data).includes("error")) {
+					setCurrentQuestion({
+						question: data.question,
+						options: shuffle(data.options),
+					});
+				} else {
+					setCurrentQuestion(undefined);
+				}
+				setAnswered(false);
+			});
 	};
+
+	useEffect(() => {
+		axios
+			.get(`https://vocabulary-strapi-cms.herokuapp.com/quiz/slug/${slug}/`)
+			.then((response) => {
+				const { status, data } = response;
+				if (status === 200 && !Object.keys(data).includes("error")) {
+					setQuizDetails(data);
+				} else {
+					setQuizDetails(undefined);
+				}
+			});
+	}, [setQuizDetails]);
+
+	useEffect(() => {
+		if (quizDetails == undefined || quizDetails == null) {
+			return;
+		}
+
+		setRandomQuestion();
+	}, [quizDetails]);
+
+	if (quizDetails == null || currentQuestion == null) {
+		return <p>loading...</p>;
+	}
+
+	if (quizDetails == undefined) {
+		return <p>quiz cannot be loaded</p>;
+	}
+
+	if (currentQuestion == undefined) {
+		return <p>error loading question</p>;
+	}
+
 	return (
 		<div className={classes.container}>
 			<div hidden={!answered}>
-				<IconButton className={classes.nextButton} onClick={setNextQuestion}>
+				<IconButton className={classes.nextButton} onClick={setRandomQuestion}>
 					<DetailsIcon className={clsx(classes.next)} />
 				</IconButton>
 			</div>
 			<div className={classes.textContainer}>
 				<Typography className={classes.question}>
-					Pick a random number
+					{quizDetails.base_question}
+					<br />
+					<small>{currentQuestion.question}</small>
 				</Typography>
 			</div>
 			{/* you can add logic to check if answer is correct, just using random numbers rn*/}
 			<Container className={classes.buttonContainer}>
 				<Grid container spacing={5}>
-					{buttons.map((d, i) => (
+					{currentQuestion.options.map((option, index) => (
 						<CustomButton
-							key={i}
-							isCorrect={d == answer}
-							handleClick={handleClick}
+							key={index}
+							isCorrect={option.isAnswer == true}
+							handleClick={handleUserAnswer}
 							isDisabled={answered}
 						>
-							{d}
+							{option.text}
 						</CustomButton>
 					))}
 				</Grid>
