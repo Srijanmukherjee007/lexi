@@ -55,6 +55,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/quiz/slug/:slug/randomquestion",
+      "handler": "quiz.randomquestionslug",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }
