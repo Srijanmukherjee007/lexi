@@ -70,7 +70,7 @@ module.exports = {
     return;
   },
 
-  async quizbysulg() {
+  async quizbysulg(ctx) {
     const quiz = await strapi.query("quiz").findOne({ slug: ctx.params.slug });
     if (!quiz) {
       ctx.send(
