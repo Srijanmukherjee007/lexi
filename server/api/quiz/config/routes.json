@@ -63,6 +63,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/quiz/slug/:slug",
+      "handler": "quiz.quizbysulg",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

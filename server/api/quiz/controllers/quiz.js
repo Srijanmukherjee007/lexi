@@ -69,4 +69,26 @@ module.exports = {
     });
     return;
   },
+
+  async quizbysulg() {
+    const quiz = await strapi.query("quiz").findOne({ slug: ctx.params.slug });
+    if (!quiz) {
+      ctx.send(
+        {
+          error: "quiz does not exist",
+        },
+        404
+      );
+
+      return;
+    }
+
+    ctx.send({
+      id: quiz.id,
+      name: quiz.name,
+      slug: quiz.slug,
+      base_question: quiz.base_question,
+    });
+    return;
+  },
 };
