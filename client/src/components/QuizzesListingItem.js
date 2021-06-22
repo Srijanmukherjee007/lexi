@@ -1,84 +1,32 @@
-import { Grid, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
-import clsx from 'clsx';
-import React, { useState } from 'react';
+import { Grid, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	quizCard: {
-		position: 'relative',
-		width: '70vw',
-		background: '#715845',
-		height: '25vh',
-		display: 'flex',
-		justifyContent: 'center',
-		transition: 'transform 300ms ease-in-out',
-		cursor: 'pointer',
-		color: 'white',
-		flexWrap: 'wrap',
-		'&:hover': {
-			transform: 'scale(1.15)',
-		},
+		background: "#715845",
+		color: "white",
+		borderRadius: "12px",
+		padding: "0",
 	},
-	cardDesc: {
-		opacity: 0,
-		transform: 'translateY(10%)',
-		transition: 'all 150ms ease-in-out',
-	},
-	cardDescHover: {
-		transform: 'translateY(0%)',
-		opacity: 1,
-	},
-	cardLabel: {
-		fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-		transform: 'translateY(50%)',
-		transition: 'transform 150ms ease-in-out',
-	},
-	cardHovered: {
-		transform: 'translateY(25%)',
+
+	quizLink: {
+		display: "block",
+		width: "100%",
+		height: "100%",
+		textAlign: "center",
+		padding: "5rem",
+		fontSize: "2rem",
 	},
 }));
 
 export default function QuizzesListingItem(props) {
-	const { desc, title } = props;
+	const { slug, title } = props;
 	const classes = useStyles();
-	const [hovered, setHovered] = useState(false);
-	const handleHover = () => {
-		setHovered(true);
-	};
-	const handleLeave = () => {
-		setHovered(false);
-	};
 	return (
-		<Grid item xs={10} style={{ marginTop: '5vh' }}>
-			<div
-				className={classes.quizCard}
-				onMouseEnter={handleHover}
-				onMouseLeave={handleLeave}
-			>
-				<div
-					style={{
-						width: '100%',
-						display: 'flex',
-						justifyContent: 'center',
-					}}
-				>
-					<Typography
-						className={clsx(classes.cardLabel, {
-							[classes.cardHovered]: hovered,
-						})}
-					>
-						{title}
-					</Typography>
-				</div>
-
-				<Typography
-					className={clsx(classes.cardDesc, {
-						[classes.cardDescHover]: hovered,
-					})}
-				>
-					{desc}
-				</Typography>
-			</div>
+		<Grid item className={classes.quizCard}>
+			<a href={"/quizzes/mode/" + slug} className={classes.quizLink}>
+				{title}
+			</a>
 		</Grid>
 	);
 }
