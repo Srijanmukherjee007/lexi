@@ -1,14 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Head from "next/head";
-import { ThemeProvider } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import theme from "../src/theme";
-import styles from "../styles/globals.css";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Head from 'next/head';
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import theme from '../src/theme';
+import '../styles/globals.css';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 const client = new ApolloClient({
-	uri: "http://vocabulary-strapi-cms.herokuapp.com/graphql",
+	uri: 'http://vocabulary-strapi-cms.herokuapp.com/graphql',
 	cache: new InMemoryCache(),
 });
 
@@ -17,7 +17,7 @@ export default function MyApp(props) {
 
 	React.useEffect(() => {
 		// Remove the server-side injected CSS.
-		const jssStyles = document.querySelector("#jss-server-side");
+		const jssStyles = document.querySelector('#jss-server-side');
 		if (jssStyles) {
 			jssStyles.parentElement.removeChild(jssStyles);
 		}

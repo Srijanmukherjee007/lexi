@@ -1,45 +1,64 @@
-import React, { useState, useEffect } from "react";
-import CustomButton from "../components/CustomButton";
-import { IconButton, makeStyles } from "@material-ui/core";
-import { Container, Grid } from "@material-ui/core";
-import { Typography } from "@material-ui/core";
-import DetailsIcon from "@material-ui/icons/Details";
-import clsx from "clsx";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import CustomButton from '../components/CustomButton';
+import { IconButton, makeStyles } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import DetailsIcon from '@material-ui/icons/Details';
+import clsx from 'clsx';
+import axios from 'axios';
+import QuizLoadingSkeleton from './QuizLoadingSkeleton';
 
-const buttons = [1, 2, 3, 4];
 const useStyles = makeStyles((theme) => ({
 	container: {
-		position: "absolute",
-		minWidth: "100%",
-		height: "100%",
-		display: "flex",
-		justifyContent: "center",
-		flexDirection: "column",
+		position: 'absolute',
+		minWidth: '100%',
+		height: '100%',
+		display: 'flex',
+		justifyContent: 'center',
+		flexDirection: 'column',
 	},
 
 	textContainer: {
-		display: "flex",
-		minHeight: "33%",
-		justifyContent: "center",
+		display: 'flex',
+		justifyContent: 'center',
 		// border: '5px solid pink',
+	},
+	answerContainer: {
+		display: 'flex',
+		minHeight: '33%',
+		width: '100%',
+		justifyContent: 'center',
+		alignItems: 'center',
+		// border: '5px solid pink',
+	},
+	answerContainerInner: {
+		display: 'flex',
+		minHeight: '60%',
+		width: '50%',
+		justifyContent: 'center',
+		alignItems: 'center',
+		border: '4px solid #798CC2',
 	},
 	question: {
 		fontWeight: 600,
-		fontSize: "3rem",
+		fontSize: 'clamp(1rem, 5vw, 2.5rem)',
+	},
+	answer: {
+		fontWeight: 650,
+		fontSize: 'clamp(1.5rem, 10vw, 4rem)',
 	},
 	buttonContainer: {
-		alignSelf: "flex-end",
+		alignSelf: 'flex-end',
 	},
 	next: {
-		fontSize: "4rem",
-		color: "black",
-		transform: "rotate(-90deg)",
+		fontSize: '4rem',
+		color: 'black',
+		transform: 'rotate(-90deg)',
 	},
 	nextButton: {
-		position: "absolute",
-		left: "91%",
-		top: "3%",
+		position: 'absolute',
+		left: '91%',
+		top: '3%',
 	},
 }));
 
@@ -86,7 +105,7 @@ export default function Quiz({ slug }) {
 			.then((response) => {
 				const { status, data } = response;
 
-				if (status == 200 && !Object.keys(data).includes("error")) {
+				if (status == 200 && !Object.keys(data).includes('error')) {
 					setCurrentQuestion({
 						question: data.question,
 						options: shuffle(data.options),
@@ -103,7 +122,7 @@ export default function Quiz({ slug }) {
 			.get(`https://vocabulary-strapi-cms.herokuapp.com/quiz/slug/${slug}/`)
 			.then((response) => {
 				const { status, data } = response;
-				if (status === 200 && !Object.keys(data).includes("error")) {
+				if (status === 200 && !Object.keys(data).includes('error')) {
 					setQuizDetails(data);
 				} else {
 					setQuizDetails(undefined);
@@ -120,7 +139,7 @@ export default function Quiz({ slug }) {
 	}, [quizDetails]);
 
 	if (quizDetails == null || currentQuestion == null) {
-		return <p>loading...</p>;
+		return <QuizLoadingSkeleton />;
 	}
 
 	if (quizDetails == undefined) {
@@ -141,11 +160,15 @@ export default function Quiz({ slug }) {
 			<div className={classes.textContainer}>
 				<Typography className={classes.question}>
 					{quizDetails.base_question}
-					<br />
-					<small>{currentQuestion.question}</small>
 				</Typography>
 			</div>
-			{/* you can add logic to check if answer is correct, just using random numbers rn*/}
+			<div className={classes.answerContainer}>
+				<div className={classes.answerContainerInner}>
+					<Typography className={classes.answer}>
+						{currentQuestion.question}
+					</Typography>
+				</div>
+			</div>
 			<Container className={classes.buttonContainer}>
 				<Grid container spacing={5}>
 					{currentQuestion.options.map((option, index) => (

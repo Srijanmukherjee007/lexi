@@ -1,33 +1,55 @@
-import React from "react";
-import { Button, Grid, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
-import { useState, useEffect } from "react";
-import clsx from "clsx";
+import React from 'react';
+import { Button, Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+import { useState, useEffect } from 'react';
+import clsx from 'clsx';
+import styled from 'styled-components';
 
+const CustomLoadingButton = styled(Button)`
+	background: linear-gradient(
+		-90deg,
+		rgba(230, 230, 230, 1) 0%,
+		rgba(121, 140, 194, 1) 0%,
+		rgba(217, 218, 223, 1) 50%,
+		rgba(121, 140, 194, 1) 100%
+	);
+	min-height: 7rem;
+	height: 10rem;
+	width: 100%;
+	background-size: 400% 400%;
+	animation: slide 2.5s ease-in infinite;
+	@keyframes slide {
+		from {
+			background-position: 0% 0%;
+		}
+		to {
+			background-position: -135% 0%;
+		}
+	} ;
+`;
 const useStyles = makeStyles((theme) => ({
 	customButton: {
-		margin: "10px",
-		minHeight: "7rem",
-		height: "10rem",
-		width: "100%",
-		textTransform: "capitalize",
-		background: "#6f4e37",
-		"&:hover": {
-			background: "#593f2d",
+		minHeight: '7rem',
+		height: '10rem',
+		width: '100%',
+		textTransform: 'lowercase',
+		background: '#798CC2',
+		'&:hover': {
+			background: '#5C6FAA',
 		},
 	},
 	customButtonCorrect: {
 		background:
-			"linear-gradient(50deg, rgba(230,230,230,1) 0%, rgba(50,230,94,1) 0%)",
+			'linear-gradient(50deg, rgba(230,230,230,1) 0%, rgba(50,230,94,1) 0%)',
 	},
 	customButtonIncorrect: {
 		background:
-			"linear-gradient(50deg, rgba(230,230,230,1) 0%, rgba(230,50,50,1) 0%)",
+			'linear-gradient(50deg, rgba(230,230,230,1) 0%, rgba(230,50,50,1) 0%)',
 	},
 	buttonText: {
-		color: "#fceceb",
-		fontWeight: "600",
-		fontSize: "2rem",
+		color: '#fceceb',
+		fontWeight: '600',
+		fontSize: 'clamp(1rem, 4vw, 2rem)',
 	},
 }));
 export default function CustomButton(props) {
@@ -38,13 +60,24 @@ export default function CustomButton(props) {
 		setCorrect(isCorrect);
 		handleClick(...arguments);
 	};
-	// using answered from parent to determine isDisabled
+	// using answered from parent to determine isDisabled, answered also communicates whether question is answered
 	useEffect(() => {
 		if (isDisabled == false) {
 			setCorrect(null);
+		} else if (isDisabled == true) {
+			if (isCorrect == true) {
+				setCorrect(isCorrect);
+			}
 		}
 	}, [isDisabled]);
-
+	// check if correct then just display
+	if (props.loading) {
+		return (
+			<Grid item xs={6}>
+				<CustomLoadingButton variant="contained" />
+			</Grid>
+		);
+	}
 	return (
 		<Grid item xs={6}>
 			<Button

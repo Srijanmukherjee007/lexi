@@ -1,10 +1,10 @@
 import React from 'react';
-import OxfordAPI from '../src/pages/OxfordAPI';
+import QuizLoadingSkeleton from '../src/pages/QuizLoadingSkeleton';
 
 export default function apitesting() {
 	return (
 		<div>
-			<OxfordAPI />
+			<QuizLoadingSkeleton />
 		</div>
 	);
 }

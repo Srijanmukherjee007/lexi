@@ -15,7 +15,7 @@ html {
 			rgba(0, 84, 101, 1) 100%
 		)
 		no-repeat center center fixed; */
-	background: #ffedcc;
+	background: #f4f5f8;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -122,17 +122,14 @@ a {
 	}
 }
 
-.slideInTransition-enter {
-	opacity: 0;
+.aniContainer .animationsBounce:nth-child(1) {
+	animation-delay: 0.2s;
 }
-.slideInTransition-enter-active {
-	opacity: 1;
-	transition: opacity 200ms;
+
+.aniContainer .animationsBounce:nth-child(2) {
+	animation-delay: 0.4s;
 }
-.slideInTransition-exit {
-	opacity: 1;
-}
-.slideInTransition-exit-active {
-	opacity: 0;
-	transition: opacity 200ms;
+
+.aniContainer .animationsBounce:nth-child(3) {
+	animation-delay: 0.6s;
 }
