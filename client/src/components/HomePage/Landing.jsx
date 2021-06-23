@@ -13,8 +13,8 @@ export default function Landing({ styles, innerRef }) {
               <a href="/" className={styles.landing__nav__link__active}>
                 Home
               </a>
-              <a href="/">Quizzes</a>
-              <a href="/">About</a>
+              <a href="/quizzes">Quizzes</a>
+              <a href="/about">About</a>
             </li>
           </ul>
         </div>
