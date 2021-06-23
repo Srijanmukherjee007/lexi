@@ -1,30 +1,43 @@
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import styles from "@styles/Navbar.module.scss";
+import clsx from "clsx";
 
-function HideOnScroll(props) {
-  const { children, window } = props;
-  const trigger = useScrollTrigger({ target: window ? window() : undefined });
+const links = [
+  {
+    url: "/",
+    title: "Home",
+    name: "home",
+  },
+  {
+    url: "/quizzes",
+    title: "Quizzes",
+    name: "quizzes",
+  },
+  {
+    url: "/about",
+    title: "About",
+    name: "about",
+  },
+];
 
-  return (
-    <Slide appear={false} direction="down" in={!trigger}>
-      {children}
-    </Slide>
-  );
-}
-
-export default function Navbar({ innerRef }) {
+export default function Navbar({ innerRef, activeNavLink = null }) {
   return (
     <div className={styles.navbar} ref={innerRef}>
       <div className={styles.navbar__nav}>
         <div className={styles.navbar__title}>Lexi</div>
         <ul className={styles.navbar__nav__links}>
-          <li>
-            <a href="/" className={styles.navbar__nav__link__active}>
-              Home
-            </a>
-            <a href="/">Quizzes</a>
-            <a href="/">About</a>
-          </li>
+          {links.map((link, key) => (
+            <li key={key}>
+              <a
+                href={activeNavLink === link.name ? null : link.url}
+                className={clsx({
+                  [styles.navbar__nav__link__active]:
+                    activeNavLink === link.name,
+                })}
+              >
+                {link.title}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

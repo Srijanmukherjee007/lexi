@@ -80,7 +80,7 @@ function QuizList() {
 export default function Quizzes() {
   return (
     <>
-      <Navbar />
+      <Navbar activeNavLink="quizzes" />
       <div
         style={{
           display: "flex",
@@ -89,7 +89,7 @@ export default function Quizzes() {
           justifyContent: "space-between",
         }}
       >
-        <Container style={{ paddingTop: "100px" }}>
+        <Container style={{ padding: "60px 3em 0 3em", margin: "0" }}>
           <QuizList />
         </Container>
         <Footer />

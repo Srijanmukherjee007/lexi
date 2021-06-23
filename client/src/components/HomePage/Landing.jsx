@@ -10,9 +10,7 @@ export default function Landing({ styles, innerRef }) {
           <div className={styles.landing__title}>Lexi</div>
           <ul className={styles.landing__nav__links}>
             <li>
-              <a href="/" className={styles.landing__nav__link__active}>
-                Home
-              </a>
+              <a className={styles.landing__nav__link__active}>Home</a>
               <a href="/quizzes">Quizzes</a>
               <a href="/about">About</a>
             </li>
