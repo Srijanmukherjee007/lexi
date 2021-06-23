@@ -13,8 +13,11 @@
     opacity: 0;
     transform: scale(0);
   }
-  100% {
+  90% {
     opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
     transform: scale(1);
   }
 }
@@ -47,6 +50,46 @@
     justify-content: space-between;
     box-sizing: border-box;
 
+    .landing__nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .landing__nav__links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+
+        li {
+          padding-left: 10px;
+          a {
+            padding: 10px 20px;
+            color: #262626;
+            font-size: 1.1em;
+            transition: 100ms ease-in;
+            border-radius: 5px;
+            user-select: none;
+            margin-left: 10px;
+            text-transform: uppercase;
+
+            &.landing__nav__link__active {
+              background-color: #2359b2;
+              color: #fff;
+              cursor: initial;
+            }
+
+            &:not(&.landing__nav__link__active):hover,
+            &:not(&.landing__nav__link__active):focus {
+              filter: brightness(1.1);
+              background-color: #2359b2;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+
     .landing__title {
       font-size: 2em;
     }
@@ -63,6 +106,8 @@
         .landing__image {
           width: 100%;
           height: 100%;
+          user-select: none;
+          pointer-events: none;
         }
       }
 
@@ -76,6 +121,7 @@
         .landing__call_to_action_catchphrase {
           font-size: 3em;
           font-weight: bold;
+          @include animation("pop 250ms 0ms ease");
         }
 
         .landing__call_to_action_button {
@@ -89,12 +135,12 @@
           height: 60px;
           font-weight: bold;
           position: relative !important;
-          @include animation("pop 1s 1s both");
+          @include animation("pop 250ms 200ms both ease");
         }
 
         .landing__call_to_action_button_quick_test {
           background-color: #798cc2;
-          @include animation("pop 1s 2s both");
+          @include animation("pop 250ms 445ms both ease");
         }
       }
     }
