@@ -1,188 +1,239 @@
-import React, { useState, useEffect } from 'react';
-import CustomButton from '../components/CustomButton';
-import { IconButton, makeStyles } from '@material-ui/core';
-import { Container, Grid } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
-import DetailsIcon from '@material-ui/icons/Details';
-import clsx from 'clsx';
-import axios from 'axios';
-import QuizLoadingSkeleton from './QuizLoadingSkeleton';
+import React, { useState, useEffect } from "react";
+import CustomButton from "../components/CustomButton";
+import { IconButton, makeStyles } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
+import DetailsIcon from "@material-ui/icons/Details";
+import clsx from "clsx";
+import axios from "axios";
+import QuizLoadingSkeleton from "./QuizLoadingSkeleton";
+import CountdownTimer from "./CountdownTimer";
 
 const useStyles = makeStyles((theme) => ({
-	container: {
-		position: 'absolute',
-		minWidth: '100%',
-		height: '100%',
-		display: 'flex',
-		justifyContent: 'center',
-		flexDirection: 'column',
-	},
+  countdownContainer: {
+    alignSelf: "flex-end",
+  },
+  container: {
+    position: "absolute",
+    minWidth: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
 
-	textContainer: {
-		display: 'flex',
-		justifyContent: 'center',
-		// border: '5px solid pink',
-	},
-	answerContainer: {
-		display: 'flex',
-		minHeight: '33%',
-		width: '100%',
-		justifyContent: 'center',
-		alignItems: 'center',
-		// border: '5px solid pink',
-	},
-	answerContainerInner: {
-		display: 'flex',
-		minHeight: '60%',
-		width: '50%',
-		justifyContent: 'center',
-		alignItems: 'center',
-		border: '4px solid #798CC2',
-	},
-	question: {
-		fontWeight: 600,
-		fontSize: 'clamp(1rem, 5vw, 2.5rem)',
-	},
-	answer: {
-		fontWeight: 650,
-		fontSize: 'clamp(1.5rem, 10vw, 4rem)',
-	},
-	buttonContainer: {
-		alignSelf: 'flex-end',
-	},
-	next: {
-		fontSize: '4rem',
-		color: 'black',
-		transform: 'rotate(-90deg)',
-	},
-	nextButton: {
-		position: 'absolute',
-		left: '91%',
-		top: '3%',
-	},
+  textContainer: {
+    display: "flex",
+    justifyContent: "center",
+    // border: '5px solid pink',
+  },
+  answerContainer: {
+    display: "flex",
+    minHeight: "33%",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    // border: '5px solid pink',
+  },
+  answerContainerInner: {
+    display: "flex",
+    minHeight: "60%",
+    width: "50%",
+    justifyContent: "center",
+    alignItems: "center",
+    border: "4px solid #798CC2",
+  },
+  question: {
+    fontWeight: 600,
+    fontSize: "clamp(1rem, 5vw, 2.5rem)",
+  },
+  answer: {
+    fontWeight: 650,
+    fontSize: "clamp(1.5rem, 10vw, 4rem)",
+  },
+  buttonContainer: {
+    alignSelf: "flex-end",
+  },
+  next: {
+    fontSize: "4rem",
+    color: "black",
+    transform: "rotate(-90deg)",
+  },
+  nextButton: {
+    position: "absolute",
+    left: "91%",
+    top: "3%",
+  },
 }));
 
 function shuffle(array) {
-	let currentIndex = array.length,
-		randomIndex;
+  let currentIndex = array.length,
+    randomIndex;
 
-	// While there remain elements to shuffle...
-	while (0 !== currentIndex) {
-		// Pick a remaining element...
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex--;
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
 
-		// And swap it with the current element.
-		[array[currentIndex], array[randomIndex]] = [
-			array[randomIndex],
-			array[currentIndex],
-		];
-	}
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
 
-	return array;
+  return array;
 }
 
 export default function Quiz({ slug }) {
-	const classes = useStyles();
-	const [currentQuestion, setCurrentQuestion] = useState(null);
-	const [answered, setAnswered] = useState(false);
-	const [quizDetails, setQuizDetails] = useState(null);
-	const [score, setScore] = useState(0);
+  const classes = useStyles();
+  const [questionList, setQuestionList] = useState(null);
+  const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [answered, setAnswered] = useState(false);
+  const [quizDetails, setQuizDetails] = useState(null);
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [score, setScore] = useState(0);
+  const [maxIndex, setMaxIndex] = useState(null);
 
-	const handleUserAnswer = (event) => {
-		setAnswered(true);
-		if (event.isAnswer) {
-			setScore((prevScore) => prevScore + 1);
-		}
-	};
-	const setRandomQuestion = () => {
-		setCurrentQuestion(null);
+  const handleUserAnswer = (event) => {
+    setAnswered(true);
+    if (event.isAnswer) {
+      setScore((prevScore) => prevScore + 1);
+    }
+  };
 
-		axios
-			.get(
-				`https://vocabulary-strapi-cms.herokuapp.com/quiz/slug/${slug}/randomquestion`
-			)
-			.then((response) => {
-				const { status, data } = response;
+  // im just commenting so we can reuse later lol
 
-				if (status == 200 && !Object.keys(data).includes('error')) {
-					setCurrentQuestion({
-						question: data.question,
-						options: shuffle(data.options),
-					});
-				} else {
-					setCurrentQuestion(undefined);
-				}
-				setAnswered(false);
-			});
-	};
+  //   const setRandomQuestion = () => {
+  //     setCurrentQuestion(null);
 
-	useEffect(() => {
-		axios
-			.get(`https://vocabulary-strapi-cms.herokuapp.com/quiz/slug/${slug}/`)
-			.then((response) => {
-				const { status, data } = response;
-				if (status === 200 && !Object.keys(data).includes('error')) {
-					setQuizDetails(data);
-				} else {
-					setQuizDetails(undefined);
-				}
-			});
-	}, [setQuizDetails]);
+  //     axios
+  //       .get(
+  //         `https://vocabulary-strapi-cms.herokuapp.com/quiz/slug/${slug}/randomquestion`
+  //       )
+  //       .then((response) => {
+  //         const { status, data } = response;
 
-	useEffect(() => {
-		if (quizDetails == undefined || quizDetails == null) {
-			return;
-		}
+  //         if (status == 200 && !Object.keys(data).includes("error")) {
+  //           setCurrentQuestion({
+  //             question: data.question,
+  //             options: shuffle(data.options),
+  //           });
+  //         } else {
+  //           setCurrentQuestion(undefined);
+  //         }
+  //         setAnswered(false);
+  //       });
+  //   };
+  // getting the 10 question array
+  useEffect(() => {
+    axios
+      .get(
+        `https://vocabulary-strapi-cms.herokuapp.com/quiz/slug/${slug}/randomquestion?count=10`
+      )
+      .then((response) => {
+        const { status, data } = response;
+        if (status === 200 && !Object.keys(data).includes("error")) {
+          setQuestionList(data.questions);
+        } else {
+          setQuestionList(undefined);
+        }
+      });
+  }, [setQuestionList]);
 
-		setRandomQuestion();
-	}, [quizDetails]);
+  const setNextQuestion = () => {
+    if (questionList) {
+      setMaxIndex(questionList.length - 1);
+      if (questionIndex <= maxIndex) {
+        const data = questionList[questionIndex];
+        setCurrentQuestion({
+          question: data.question,
+          options: shuffle(data.options),
+        });
+        setQuestionIndex(questionIndex + 1);
+      } else {
+        handleQuizComplete();
+      }
+    } else {
+      setCurrentQuestion(null);
+    }
+    setAnswered(false);
+  };
 
-	if (quizDetails == null || currentQuestion == null) {
-		return <QuizLoadingSkeleton />;
-	}
+  const handleQuizComplete = () => {
+    setCurrentQuestion(undefined);
+  };
+  useEffect(() => {
+    axios
+      .get(`https://vocabulary-strapi-cms.herokuapp.com/quiz/slug/${slug}/`)
+      .then((response) => {
+        const { status, data } = response;
+        if (status === 200 && !Object.keys(data).includes("error")) {
+          setQuizDetails(data);
+        } else {
+          setQuizDetails(undefined);
+        }
+      });
+  }, [setQuizDetails]);
 
-	if (quizDetails == undefined) {
-		return <p>quiz cannot be loaded</p>;
-	}
+  useEffect(() => {
+    if (quizDetails == undefined || quizDetails == null) {
+      return;
+    }
 
-	if (currentQuestion == undefined) {
-		return <p>error loading question</p>;
-	}
+    // setRandomQuestion();
+    setNextQuestion();
+  }, [quizDetails]);
 
-	return (
-		<div className={classes.container}>
-			<div hidden={!answered}>
-				<IconButton className={classes.nextButton} onClick={setRandomQuestion}>
-					<DetailsIcon className={clsx(classes.next)} />
-				</IconButton>
-			</div>
-			<div className={classes.textContainer}>
-				<Typography className={classes.question}>
-					{quizDetails.base_question}
-				</Typography>
-			</div>
-			<div className={classes.answerContainer}>
-				<div className={classes.answerContainerInner}>
-					<Typography className={classes.answer}>
-						{currentQuestion.question}
-					</Typography>
-				</div>
-			</div>
-			<Container className={classes.buttonContainer}>
-				<Grid container spacing={5}>
-					{currentQuestion.options.map((option, index) => (
-						<CustomButton
-							key={index}
-							isCorrect={option.isAnswer == true}
-							handleClick={handleUserAnswer}
-							isDisabled={answered}
-						>
-							{option.text}
-						</CustomButton>
-					))}
-				</Grid>
-			</Container>
-		</div>
-	);
+  if (quizDetails == null || currentQuestion == null) {
+    return <QuizLoadingSkeleton />;
+  }
+
+  if (quizDetails == undefined) {
+    return <p>quiz cannot be loaded</p>;
+  }
+
+  if (currentQuestion == undefined) {
+    return <p>error loading question</p>;
+  }
+
+  return (
+    <div className={classes.container}>
+      <div className={classes.countdownContainer}>
+        <CountdownTimer variant="h3" />
+      </div>
+      <div hidden={!answered}>
+        <IconButton className={classes.nextButton} onClick={setNextQuestion}>
+          <DetailsIcon className={clsx(classes.next)} />
+        </IconButton>
+      </div>
+      <div className={classes.textContainer}>
+        <Typography className={classes.question}>
+          {quizDetails.base_question}
+        </Typography>
+      </div>
+      <div className={classes.answerContainer}>
+        <div className={classes.answerContainerInner}>
+          <Typography className={classes.answer}>
+            {currentQuestion.question}
+          </Typography>
+        </div>
+      </div>
+      <Container className={classes.buttonContainer}>
+        <Grid container spacing={5}>
+          {currentQuestion.options.map((option, index) => (
+            <CustomButton
+              key={index}
+              isCorrect={option.isAnswer == true}
+              handleClick={handleUserAnswer}
+              isDisabled={answered}
+            >
+              {option.text}
+            </CustomButton>
+          ))}
+        </Grid>
+      </Container>
+    </div>
+  );
 }

@@ -1,10 +1,10 @@
-import React from 'react';
-import QuizLoadingSkeleton from '../src/pages/QuizLoadingSkeleton';
+import React from "react";
+import CountdownTimer from "../src/pages/CountdownTimer";
 
 export default function apitesting() {
-	return (
-		<div>
-			<QuizLoadingSkeleton />
-		</div>
-	);
+  return (
+    <div>
+      <CountdownTimer />
+    </div>
+  );
 }
