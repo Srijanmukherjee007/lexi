@@ -11,7 +11,7 @@ import {
 import myTheme from "../theme";
 import clsx from "clsx";
 import Link from "next/link";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Commons/Navbar";
 const AnimatedLogo = dynamic(() => import("../components/AnimatedLogo"), {
   ssr: false,
 });

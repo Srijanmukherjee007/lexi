@@ -1,15 +1,23 @@
 import Image from "next/image";
 import { Button } from "@material-ui/core";
-import Navbar from "@components/Navbar";
-import AnimatedLogo from "@components/AnimatedLogo";
 import clsx from "clsx";
 
-export default function Landing({ styles }) {
+export default function Landing({ styles, innerRef }) {
   return (
-    <>
+    <div ref={innerRef}>
       <div className={styles.landing}>
-        <Navbar />
-        {/* <div className={styles.landing__title}>Lexi</div> */}
+        <div className={styles.landing__nav}>
+          <div className={styles.landing__title}>Lexi</div>
+          <ul className={styles.landing__nav__links}>
+            <li>
+              <a href="/" className={styles.landing__nav__link__active}>
+                Home
+              </a>
+              <a href="/">Quizzes</a>
+              <a href="/">About</a>
+            </li>
+          </ul>
+        </div>
 
         <div className={styles.landing__hero}>
           <div className={styles.landing__image__container}>
@@ -39,6 +47,6 @@ export default function Landing({ styles }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
