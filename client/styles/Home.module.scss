@@ -1,3 +1,24 @@
+@mixin keyframes($animation-name) {
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  animation: #{$str};
+}
+
+@include keyframes(pop) {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .home {
   max-width: 100vw;
   min-height: 100vh;
@@ -60,7 +81,6 @@
         .landing__call_to_action_button {
           $border-radius: 25px;
           $offset: 10px;
-
           width: 80%;
           background-color: #465172;
           color: #fff;
@@ -69,10 +89,12 @@
           height: 60px;
           font-weight: bold;
           position: relative !important;
+          @include animation("pop 1s 1s both");
         }
 
         .landing__call_to_action_button_quick_test {
           background-color: #798cc2;
+          @include animation("pop 1s 2s both");
         }
       }
     }
@@ -170,6 +192,8 @@
     height: 60px;
     font-weight: bold;
     position: relative !important;
+    animation: pop 1s ease normal both;
+    animation-delay: 1s;
   }
 
   .call_to_action_button_quick_test {

@@ -35,6 +35,13 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.text_svg path {
+  stroke: #2e2e2e;
+  stroke-dasharray: 5000;
+  stroke-dashoffset: 0;
+}
+
 .aniContainer .animationsBounce:nth-child(1) {
   animation-delay: 0.2s;
 }
