@@ -27,56 +27,54 @@ export default function Footer({ children }) {
   return (
     <>
       <div className={styles.footer}>
-        <div style={{ width: "100%" }}>{children}</div>
-        <Grid container spacing={3}>
-          <Grid item xs={6} className={styles.footer__section_left}>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <div
-                className={classes.displayContainer}
-                style={{ marginRight: "4vw" }}
-              >
-                <a className={styles.footer__section__header}>made with</a>
-                <p className={classes.listItem}>React</p>
-                <p className={classes.listItem}>NextJS</p>
-                <p className={classes.listItem}>Material UI</p>
-              </div>
-              <div className={classes.displayContainer}>
-                <GitHubIcon className={classes.icons} />
-                <a href="https://github.com/mukherjeesrijan2">
-                  Srijan Mukherjee
-                </a>
-                <a href="https://github.com/therealozp">Khang Le</a>
-              </div>
-              <div className={classes.displayContainer}>
-                <a href="https://github.com/therealozp/lexi">
-                  <CodeIcon className={classes.icons} />
-                </a>
-              </div>
-            </div>
-          </Grid>
+        {/* <div style={{ width: "100%" }}>{children}</div> */}
 
-          <Grid item xs={6} className={styles.footer__section_right}>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <div className={classes.displayContainer}>
-                <a href="/quizzes" className={styles.footer__section__header}>
-                  quizzes
-                </a>
-                <a href="/">Synonym</a>
-                <a href="/">Antonym</a>
-                <a href="/">Definition</a>
-              </div>
-              <div className={classes.displayContainer}>
-                <a href="/" className={styles.footer__section__header}>
-                  support
-                </a>
-                <a href="/">Contact us</a>
-                <a href="/">Report a question</a>
-                <a href="/">Report bug</a>
-              </div>
+        <div className={styles.footer__section_left}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <div
+              className={classes.displayContainer}
+              style={{ marginRight: "4vw" }}
+            >
+              <a className={styles.footer__section__header}>made with</a>
+              <a className={classes.listItem}>React</a>
+              <a className={classes.listItem}>NextJS</a>
+              <a className={classes.listItem}>Material UI</a>
             </div>
-          </Grid>
-        </Grid>
+            <div className={classes.displayContainer}>
+              <GitHubIcon className={classes.icons} />
+              <a href="https://github.com/mukherjeesrijan2">Srijan Mukherjee</a>
+              <a href="https://github.com/therealozp">Khang Le</a>
+            </div>
+            <div className={classes.displayContainer}>
+              <a href="https://github.com/therealozp/lexi">
+                <CodeIcon className={classes.icons} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.footer__section_right}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <div className={classes.displayContainer}>
+              <a href="/quizzes" className={styles.footer__section__header}>
+                quizzes
+              </a>
+              <a href="/">Synonym</a>
+              <a href="/">Antonym</a>
+              <a href="/">Definition</a>
+            </div>
+            <div className={classes.displayContainer}>
+              <a href="/" className={styles.footer__section__header}>
+                support
+              </a>
+              <a href="/">Contact us</a>
+              <a href="/">Report a question</a>
+              <a href="/">Report bug</a>
+            </div>
+          </div>
+        </div>
       </div>
+
       <div className={styles.ending}>developed by srijan and khang with ❤️</div>
     </>
   );
