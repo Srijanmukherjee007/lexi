@@ -1,76 +1,11 @@
-import React, { useState, useEffect } from "react";
-import CustomButton from "@components/CustomButton";
+import React, { useState, useEffect, useRef } from "react";
+import QuizOption from "@components/Quiz/QuizOption";
 import CountdownTimer from "@components/CountdownTimer";
 import Navbar from "@components/Commons/Navbar";
 import Footer from "@components/Commons/Footer";
-import QuizLoadingSkeleton from "./QuizLoadingSkeleton";
-import { IconButton, makeStyles } from "@material-ui/core";
-import { Container, Grid } from "@material-ui/core";
-import { Typography } from "@material-ui/core";
-import DetailsIcon from "@material-ui/icons/Details";
-import clsx from "clsx";
-import axios from "axios";
-
+import Button from "@material-ui/core/Button";
 import styles from "@styles/Quiz.module.scss";
-
-const useStyles = makeStyles((theme) => ({
-  countdownContainer: {
-    alignSelf: "flex-start",
-    justifySelf: "flex-start",
-    marginLeft: "1rem",
-  },
-  container: {
-    position: "absolute",
-    minWidth: "100%",
-    height: "100%",
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "column",
-  },
-
-  textContainer: {
-    display: "flex",
-    justifyContent: "center",
-    // border: '5px solid pink',
-  },
-  answerContainer: {
-    display: "flex",
-    minHeight: "33%",
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    // border: '5px solid pink',
-  },
-  answerContainerInner: {
-    display: "flex",
-    minHeight: "60%",
-    width: "50%",
-    justifyContent: "center",
-    alignItems: "center",
-    border: "4px solid #798CC2",
-  },
-  question: {
-    fontWeight: 600,
-    fontSize: "clamp(1rem, 4vw, 2.5rem)",
-  },
-  answer: {
-    fontWeight: 650,
-    fontSize: "clamp(1.5rem, 10vw, 4rem)",
-  },
-  buttonContainer: {
-    alignSelf: "flex-end",
-  },
-  next: {
-    fontSize: "4rem",
-    color: "black",
-    transform: "rotate(-90deg)",
-  },
-  nextButton: {
-    position: "absolute",
-    left: "91%",
-    top: "3%",
-  },
-}));
+import clsx from "clsx";
 
 function shuffle(array) {
   let currentIndex = array.length,
@@ -92,85 +27,62 @@ function shuffle(array) {
   return array;
 }
 
-export default function Quiz({ slug, questions }) {
-  const classes = useStyles();
-  const [questionList, setQuestionList] = useState(null);
+export default function Quiz({ quiz, questions }) {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [answered, setAnswered] = useState(false);
-  const [quizDetails, setQuizDetails] = useState(null);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
-  const [maxIndex, setMaxIndex] = useState(null);
+  const timerRef = useRef();
 
-  const [timerController, setTimerController] = useState(null);
-
-  const handleUserAnswer = (event) => {
-    if (timerController) {
-      timerController.pause();
+  // user answers a question
+  const handleUserAnswer = (isCorrect) => {
+    if (timerRef.current) {
+      timerRef.current.pause();
     }
     setAnswered(true);
-    if (event.isAnswer) {
-      setScore((prevScore) => prevScore + 1);
+    if (isCorrect) {
+      setScore(score + 1);
     }
-  };
 
-  useEffect(() => {
-    setQuestionList(questions);
-  }, [setQuestionList]);
+    // setNextQuestion();
+  };
 
   const setNextQuestion = () => {
-    if (questionList) {
-      setMaxIndex(questionList.length - 1);
-      if (questionIndex <= maxIndex) {
-        const data = questionList[questionIndex];
-        setCurrentQuestion({
-          question: data.question,
-          options: shuffle(data.options),
-        });
-        setQuestionIndex(questionIndex + 1);
-      } else {
-        handleQuizComplete();
-      }
+    if (questionIndex < questions.length) {
+      const data = questions[questionIndex];
+
+      setCurrentQuestion({
+        question: data.question,
+        options: shuffle(data.options),
+      });
+      setQuestionIndex((prev) => prev + 1);
     } else {
-      setCurrentQuestion(null);
+      handleQuizComplete();
     }
+  };
+
+  useEffect(() => {
     setAnswered(false);
 
-    if (timerController) {
-      timerController.reset();
+    if (timerRef.current) {
+      timerRef.current.resetAndStart();
     }
-  };
+  }, [currentQuestion, timerRef]);
 
   const handleQuizComplete = () => {
-    setCurrentQuestion(undefined);
+    // setCurrentQuestion(undefined);
+    alert("quiz complete");
   };
-  useEffect(() => {
-    axios
-      .get(`https://vocabulary-strapi-cms.herokuapp.com/quiz/slug/${slug}/`)
-      .then((response) => {
-        const { status, data } = response;
-        if (status === 200 && !Object.keys(data).includes("error")) {
-          setQuizDetails(data);
-        } else {
-          setQuizDetails(undefined);
-        }
-      });
-  }, [setQuizDetails]);
 
   useEffect(() => {
-    if (quizDetails == undefined || quizDetails == null) {
-      return;
-    }
+    setNextQuestion(); // set the first question
+  }, []);
 
-    // setRandomQuestion();
-    setNextQuestion();
-  }, [quizDetails]);
-
-  if (quizDetails == null || currentQuestion == null) {
-    return <QuizLoadingSkeleton />;
+  if (currentQuestion == null) {
+    return <p>loading...</p>;
   }
 
-  if (quizDetails == undefined) {
+  if (quiz == undefined) {
     return <p>quiz cannot be loaded</p>;
   }
 
@@ -186,55 +98,48 @@ export default function Quiz({ slug, questions }) {
         <div className={styles.quiz}>
           {/* Show quiz name */}
           <div className={styles.quiz__name}>
-            <span>{quizDetails.name}</span> quiz
+            <span>{quiz.name}</span> quiz
           </div>
 
           {/* Quiz header */}
           <div className={styles.quiz__header}>
             {/* Score */}
-            <div>{score}</div>
+            <div className={styles.quiz__score}>
+              score: <span>{score}</span>
+            </div>
             {/* Countdown */}
-            <CountdownTimer
-              onTimerInitialize={(timer) => {
-                setTimerController(timer);
-              }}
-            />
+            <CountdownTimer ref={timerRef} />
           </div>
           {/* Question | options */}
-          {/* <div hidden={!answered}>
-            <IconButton
-              className={classes.nextButton}
-              onClick={setNextQuestion}
-            >
-              <DetailsIcon className={clsx(classes.next)} />
-            </IconButton>
-          </div> */}
-          {/* <div className={classes.textContainer}>
-            <Typography className={classes.question}>
-              {quizDetails.base_question}
-            </Typography>
-          </div>
-          <div className={classes.answerContainer}>
-            <div className={classes.answerContainerInner}>
-              <Typography className={classes.answer}>
+          <div className={styles.question_container}>
+            <div className={styles.question}>
+              <div className={styles.main_question} title={quiz.base_question}>
                 {currentQuestion.question}
-              </Typography>
+              </div>
+              {/* Overlay */}
+              <div
+                className={clsx({
+                  [styles.overlay]: true,
+                  [styles.overlay_hidden]: !answered,
+                })}>
+                <Button onClick={setNextQuestion} className={styles.next_btn}>
+                  next
+                </Button>
+              </div>
             </div>
-          </div>
-          <Container className={classes.buttonContainer}>
-            <Grid container spacing={5}>
+            <div className={styles.options}>
               {currentQuestion.options.map((option, index) => (
-                <CustomButton
+                <QuizOption
                   key={index}
                   isCorrect={option.isAnswer == true}
                   handleClick={handleUserAnswer}
                   isDisabled={answered}
-                >
+                  styles={styles}>
                   {option.text}
-                </CustomButton>
+                </QuizOption>
               ))}
-            </Grid>
-          </Container> */}
+            </div>
+          </div>
         </div>
 
         <Footer />
