@@ -8,7 +8,7 @@ export default function Footer({ children }) {
         {children}
         <Grid container spacing={5}>
           <Grid item className={styles.footer__section}>
-            <a href="/" className={styles.footer__section__header}>
+            <a href="/quizzes" className={styles.footer__section__header}>
               quizzes
             </a>
             <a href="/">synonym</a>

@@ -1,0 +1,37 @@
+.heading {
+  font-size: 1.5em;
+  padding: 0 0 20px 0;
+}
+
+.quizList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  grid-gap: 5px;
+  margin-bottom: 20px;
+
+  .quizItem {
+    display: block;
+    aspect-ratio: 1;
+    border-radius: 5px;
+    background-color: rgb(34, 31, 31);
+    color: white;
+    font-size: 1.2em;
+    text-transform: lowercase;
+    letter-spacing: 2px;
+    transition: 150ms ease;
+
+    &:hover,
+    &:focus,
+    &:focus-within {
+      background-color: rgb(54, 50, 50);
+      filter: brightness(1.5);
+    }
+
+    .quizItem__link {
+      display: grid;
+      place-items: center;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
