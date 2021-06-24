@@ -3,44 +3,69 @@ import { Typography } from "@material-ui/core";
 
 export default function CountdownTimer({
   variant = "body1",
-  children,
-  timeLimit = 10,
+  timeCount = 10,
+  onTimerInitialize = () => {},
+  onTimerComplete = () => {},
 }) {
-  const timeCount = timeLimit;
-  let tickTimeout;
+  const [tickTimeout, setTickTimeout] = useState(null);
   const [gameEndSound, setGameEndSound] = useState(null);
   const [time, setTime] = useState(timeCount);
-  const [loop, setLoop] = useState();
   const [startEndingSound, setStartEndingSound] = useState(false);
+  const [paused, setPaused] = useState(false);
+
   useEffect(() => {
-    setGameEndSound(
-      new Audio(
-        "https://dm0qx8t0i9gc9.cloudfront.net/previews/audio/BsTwCwBHBjzwub4i4/audioblocks-game-start-countdown_HWHWyNd7FDU_NWM.mp3"
-      )
-    );
+    setGameEndSound(new Audio("/audio/endCountdown.mp3"));
+  }, []);
+
+  useEffect(() => {
+    const timerEndpoints = {
+      reset: () => {
+        // reset timer
+        clearTimeout(tickTimeout);
+        setPaused(false);
+        setTime(timeCount);
+        setStartEndingSound(false);
+      },
+
+      pause: () => {
+        // pause timer
+        clearTimeout(tickTimeout);
+        setPaused(true);
+      },
+    };
+
+    onTimerInitialize(timerEndpoints);
   }, []);
 
   function tick() {
     clearTimeout(tickTimeout);
-    tickTimeout = setTimeout(() => {
-      setTime(time - 1);
-    }, 1000);
+    setTickTimeout(
+      setTimeout(() => {
+        setTime(time - 1);
+      }, 1000)
+    );
   }
 
   useEffect(() => {
+    if (paused) {
+      return;
+    }
+
     if (time <= 0) {
+      setStartEndingSound(false);
       clearTimeout(tickTimeout);
+      onTimerComplete();
       return;
     }
 
     if (!startEndingSound && time <= 4) {
       setStartEndingSound(true);
     }
+
     tick();
-  }, [time]);
+  }, [time, paused]);
 
   useEffect(() => {
-    console.log(gameEndSound);
     if (gameEndSound !== null) {
       gameEndSound.play();
     }
@@ -53,9 +78,8 @@ export default function CountdownTimer({
   }, [startEndingSound]);
 
   return (
-    <div>
+    <div style={{ position: "absolute" }}>
       <Typography variant={variant}>{time}</Typography>
-      {children}
     </div>
   );
 }

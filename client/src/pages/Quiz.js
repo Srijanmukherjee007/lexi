@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
-import CustomButton from "../components/CustomButton";
+import CustomButton from "@components/CustomButton";
+import CountdownTimer from "@components/CountdownTimer";
+import Navbar from "@components/Commons/Navbar";
+import QuizLoadingSkeleton from "./QuizLoadingSkeleton";
 import { IconButton, makeStyles } from "@material-ui/core";
 import { Container, Grid } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 import DetailsIcon from "@material-ui/icons/Details";
 import clsx from "clsx";
 import axios from "axios";
-import QuizLoadingSkeleton from "./QuizLoadingSkeleton";
-import CountdownTimer from "./CountdownTimer";
+
+import styles from "@styles/Quiz.module.scss";
 
 const useStyles = makeStyles((theme) => ({
   countdownContainer: {
-    alignSelf: "flex-end",
+    alignSelf: "flex-start",
+    justifySelf: "flex-start",
+    marginLeft: "1rem",
   },
   container: {
     position: "absolute",
@@ -45,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
   question: {
     fontWeight: 600,
-    fontSize: "clamp(1rem, 5vw, 2.5rem)",
+    fontSize: "clamp(1rem, 4vw, 2.5rem)",
   },
   answer: {
     fontWeight: 650,
@@ -86,7 +91,7 @@ function shuffle(array) {
   return array;
 }
 
-export default function Quiz({ slug }) {
+export default function Quiz({ slug, questions }) {
   const classes = useStyles();
   const [questionList, setQuestionList] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
@@ -96,50 +101,20 @@ export default function Quiz({ slug }) {
   const [score, setScore] = useState(0);
   const [maxIndex, setMaxIndex] = useState(null);
 
+  const [timerController, setTimerController] = useState(null);
+
   const handleUserAnswer = (event) => {
+    if (timerController) {
+      timerController.pause();
+    }
     setAnswered(true);
     if (event.isAnswer) {
       setScore((prevScore) => prevScore + 1);
     }
   };
 
-  // im just commenting so we can reuse later lol
-
-  //   const setRandomQuestion = () => {
-  //     setCurrentQuestion(null);
-
-  //     axios
-  //       .get(
-  //         `https://vocabulary-strapi-cms.herokuapp.com/quiz/slug/${slug}/randomquestion`
-  //       )
-  //       .then((response) => {
-  //         const { status, data } = response;
-
-  //         if (status == 200 && !Object.keys(data).includes("error")) {
-  //           setCurrentQuestion({
-  //             question: data.question,
-  //             options: shuffle(data.options),
-  //           });
-  //         } else {
-  //           setCurrentQuestion(undefined);
-  //         }
-  //         setAnswered(false);
-  //       });
-  //   };
-  // getting the 10 question array
   useEffect(() => {
-    axios
-      .get(
-        `https://vocabulary-strapi-cms.herokuapp.com/quiz/slug/${slug}/randomquestion?count=10`
-      )
-      .then((response) => {
-        const { status, data } = response;
-        if (status === 200 && !Object.keys(data).includes("error")) {
-          setQuestionList(data.questions);
-        } else {
-          setQuestionList(undefined);
-        }
-      });
+    setQuestionList(questions);
   }, [setQuestionList]);
 
   const setNextQuestion = () => {
@@ -159,6 +134,10 @@ export default function Quiz({ slug }) {
       setCurrentQuestion(null);
     }
     setAnswered(false);
+
+    if (timerController) {
+      timerController.reset();
+    }
   };
 
   const handleQuizComplete = () => {
@@ -199,41 +178,50 @@ export default function Quiz({ slug }) {
   }
 
   return (
-    <div className={classes.container}>
-      <div className={classes.countdownContainer}>
-        <CountdownTimer variant="h3" />
-      </div>
-      <div hidden={!answered}>
-        <IconButton className={classes.nextButton} onClick={setNextQuestion}>
-          <DetailsIcon className={clsx(classes.next)} />
-        </IconButton>
-      </div>
-      <div className={classes.textContainer}>
-        <Typography className={classes.question}>
-          {quizDetails.base_question}
-        </Typography>
-      </div>
-      <div className={classes.answerContainer}>
-        <div className={classes.answerContainerInner}>
-          <Typography className={classes.answer}>
-            {currentQuestion.question}
+    <>
+      <Navbar />
+      <div className={styles.quiz}>
+        <div className={classes.countdownContainer}>
+          <CountdownTimer
+            variant="h3"
+            onTimerInitialize={(timer) => {
+              setTimerController(timer);
+            }}
+            onTimerComplete={handleUserAnswer}
+          />
+        </div>
+        {/* <div hidden={!answered}>
+          <IconButton className={classes.nextButton} onClick={setNextQuestion}>
+            <DetailsIcon className={clsx(classes.next)} />
+          </IconButton>
+        </div> */}
+        <div className={classes.textContainer}>
+          <Typography className={classes.question}>
+            {quizDetails.base_question}
           </Typography>
         </div>
+        <div className={classes.answerContainer}>
+          <div className={classes.answerContainerInner}>
+            <Typography className={classes.answer}>
+              {currentQuestion.question}
+            </Typography>
+          </div>
+        </div>
+        <Container className={classes.buttonContainer}>
+          <Grid container spacing={5}>
+            {currentQuestion.options.map((option, index) => (
+              <CustomButton
+                key={index}
+                isCorrect={option.isAnswer == true}
+                handleClick={handleUserAnswer}
+                isDisabled={answered}
+              >
+                {option.text}
+              </CustomButton>
+            ))}
+          </Grid>
+        </Container>
       </div>
-      <Container className={classes.buttonContainer}>
-        <Grid container spacing={5}>
-          {currentQuestion.options.map((option, index) => (
-            <CustomButton
-              key={index}
-              isCorrect={option.isAnswer == true}
-              handleClick={handleUserAnswer}
-              isDisabled={answered}
-            >
-              {option.text}
-            </CustomButton>
-          ))}
-        </Grid>
-      </Container>
-    </div>
+    </>
   );
 }
