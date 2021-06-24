@@ -108,8 +108,7 @@ export default function CustomButton(props) {
           { [classes.customButtonIncorrect]: correct == false }
         )}
         onClick={handleAnswer}
-        disabled={isDisabled}
-      >
+        disabled={isDisabled}>
         <Typography className={classes.buttonText}>{children}</Typography>
       </Button>
     </Grid>

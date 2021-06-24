@@ -1,38 +1,89 @@
 .countdown_timer {
   position: relative;
-  display: flex;
-  height: 7vw;
-  width: 7vw;
-  align-items: center;
-  justify-content: center;
-  // outline: 1px solid black;
+  height: 50px;
+  width: 50px;
+  color: rgb(79, 79, 196);
 
   .countdown_timer__time {
-    color: rgb(79, 79, 196);
     display: flex;
-    line-height: 50px;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1.2rem;
+  }
+
+  &.running {
+    .svg_circle {
+      .svg_spinner {
+        animation: countdown 10s linear forwards;
+      }
+    }
+  }
+
+  &.paused {
+    .svg_circle {
+      .svg_spinner {
+        animation-play-state: paused;
+      }
+    }
   }
 
   .svg_circle {
     position: absolute;
-    // top: 0;
-    // right: 0;
-    width: 7rem;
-    height: 7rem;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     transform: rotateY(-180deg) rotateZ(-90deg);
-    // outline: 1px solid black;
 
-    circle {
+    .svg_spinner {
       stroke-width: 2rem;
-      stroke-dasharray: 210px;
+      stroke-dasharray: 158px;
       stroke-dashoffset: 0px;
       stroke-linecap: round;
       stroke-width: 2px;
-      stroke: rgb(109, 109, 196);
+      stroke: currentColor;
       fill: none;
-      animation: countdown 10s linear forwards;
+    }
+
+    .svg_spinner_path {
+      fill: none;
+      stroke: #eee;
+      stroke-width: 2rem;
+      stroke-dasharray: 158px;
+      stroke-dashoffset: 0px;
+      stroke-linecap: round;
+      stroke-width: 2px;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    &::after {
+      content: "timer";
+      position: absolute;
+      left: -100%;
+      top: 50%;
+      transform: translate(0, -50%);
+      width: max-content;
+      height: auto;
+      padding: 5px;
+      border-radius: 5px;
+      background-color: #242424;
+      color: #fff;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -1ch;
+      top: 50%;
+      transform: translate(0, -50%);
+      width: 0;
+      height: 0;
+      border: 0.75ch solid transparent;
+      border-left-color: #242424;
     }
   }
 }
@@ -42,6 +93,6 @@
     stroke-dashoffset: 0px;
   }
   to {
-    stroke-dashoffset: 210px;
+    stroke-dashoffset: 158px;
   }
 }
