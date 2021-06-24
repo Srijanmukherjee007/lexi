@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Typography } from "@material-ui/core";
+import clsx from "clsx";
+import styles from "@styles/CountdownTimer.module.scss";
 
 export default function CountdownTimer({
-  variant = "body1",
   timeCount = 10,
   onTimerInitialize = () => {},
   onTimerComplete = () => {},
@@ -67,7 +68,7 @@ export default function CountdownTimer({
 
   useEffect(() => {
     if (gameEndSound !== null) {
-      gameEndSound.play();
+      // gameEndSound.play();
     }
 
     return () => {
@@ -78,8 +79,13 @@ export default function CountdownTimer({
   }, [startEndingSound]);
 
   return (
-    <div style={{ position: "absolute" }}>
-      <Typography variant={variant}>{time}</Typography>
+    <div className={styles.countdown_timer}>
+      <div className={styles.countdown_timer__time}>
+        <svg className={styles.svg_circle}>
+          <circle r="2rem" cx="3.5rem" cy="3.5rem" />
+        </svg>
+        <Typography variant="h5">{time}</Typography>
+      </div>
     </div>
   );
 }

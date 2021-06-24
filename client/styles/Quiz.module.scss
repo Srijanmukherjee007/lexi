@@ -1,2 +1,28 @@
+.container {
+  padding-top: 60px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: white;
+}
+
 .quiz {
+  padding: 10px 3em;
+
+  .quiz__name {
+    padding: 10px 0;
+    font-size: 1.4em;
+    text-transform: uppercase;
+
+    span {
+      background-color: #242424;
+      padding: 5px;
+      color: #fff;
+      border-radius: 5px;
+    }
+  }
+
+  .quiz__header {
+  }
 }

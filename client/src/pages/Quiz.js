@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CustomButton from "@components/CustomButton";
 import CountdownTimer from "@components/CountdownTimer";
 import Navbar from "@components/Commons/Navbar";
+import Footer from "@components/Commons/Footer";
 import QuizLoadingSkeleton from "./QuizLoadingSkeleton";
 import { IconButton, makeStyles } from "@material-ui/core";
 import { Container, Grid } from "@material-ui/core";
@@ -180,47 +181,63 @@ export default function Quiz({ slug, questions }) {
   return (
     <>
       <Navbar />
-      <div className={styles.quiz}>
-        <div className={classes.countdownContainer}>
-          <CountdownTimer
-            variant="h3"
-            onTimerInitialize={(timer) => {
-              setTimerController(timer);
-            }}
-            onTimerComplete={handleUserAnswer}
-          />
-        </div>
-        {/* <div hidden={!answered}>
-          <IconButton className={classes.nextButton} onClick={setNextQuestion}>
-            <DetailsIcon className={clsx(classes.next)} />
-          </IconButton>
-        </div> */}
-        <div className={classes.textContainer}>
-          <Typography className={classes.question}>
-            {quizDetails.base_question}
-          </Typography>
-        </div>
-        <div className={classes.answerContainer}>
-          <div className={classes.answerContainerInner}>
-            <Typography className={classes.answer}>
-              {currentQuestion.question}
+
+      <div className={styles.container}>
+        <div className={styles.quiz}>
+          {/* Show quiz name */}
+          <div className={styles.quiz__name}>
+            <span>{quizDetails.name}</span> quiz
+          </div>
+
+          {/* Quiz header */}
+          <div className={styles.quiz__header}>
+            {/* Score */}
+            <div>{score}</div>
+            {/* Countdown */}
+            <CountdownTimer
+              onTimerInitialize={(timer) => {
+                setTimerController(timer);
+              }}
+            />
+          </div>
+          {/* Question | options */}
+          {/* <div hidden={!answered}>
+            <IconButton
+              className={classes.nextButton}
+              onClick={setNextQuestion}
+            >
+              <DetailsIcon className={clsx(classes.next)} />
+            </IconButton>
+          </div> */}
+          {/* <div className={classes.textContainer}>
+            <Typography className={classes.question}>
+              {quizDetails.base_question}
             </Typography>
           </div>
+          <div className={classes.answerContainer}>
+            <div className={classes.answerContainerInner}>
+              <Typography className={classes.answer}>
+                {currentQuestion.question}
+              </Typography>
+            </div>
+          </div>
+          <Container className={classes.buttonContainer}>
+            <Grid container spacing={5}>
+              {currentQuestion.options.map((option, index) => (
+                <CustomButton
+                  key={index}
+                  isCorrect={option.isAnswer == true}
+                  handleClick={handleUserAnswer}
+                  isDisabled={answered}
+                >
+                  {option.text}
+                </CustomButton>
+              ))}
+            </Grid>
+          </Container> */}
         </div>
-        <Container className={classes.buttonContainer}>
-          <Grid container spacing={5}>
-            {currentQuestion.options.map((option, index) => (
-              <CustomButton
-                key={index}
-                isCorrect={option.isAnswer == true}
-                handleClick={handleUserAnswer}
-                isDisabled={answered}
-              >
-                {option.text}
-              </CustomButton>
-            ))}
-          </Grid>
-        </Container>
+
+        <Footer />
       </div>
     </>
   );

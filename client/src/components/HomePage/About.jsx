@@ -15,9 +15,9 @@ export default function About({ styles }) {
         />
       </div>
       <div className={styles.about__text}>
-        Lexi is an online platform to take fun and interactive English
-        vocabulary quizzes. The quizzes contains words of daily use, and thus
-        can help you effectively improve your vocabulary.
+        Lexi is an online app for you to take quizzes that expands your
+        vocabulary. Let's be real, vocabulary is hard, but we have designed our
+        quizzes to help you improve!
       </div>
     </div>
   );
