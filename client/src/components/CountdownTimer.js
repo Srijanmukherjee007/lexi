@@ -1,91 +1,127 @@
-import React, { useEffect, useState } from "react";
-import { Typography } from "@material-ui/core";
-import clsx from "clsx";
+import React, { useEffect, useState, useRef, useImperativeHandle } from "react";
 import styles from "@styles/CountdownTimer.module.scss";
 
-export default function CountdownTimer({
-  timeCount = 10,
-  onTimerInitialize = () => {},
-  onTimerComplete = () => {},
-}) {
-  const [tickTimeout, setTickTimeout] = useState(null);
-  const [gameEndSound, setGameEndSound] = useState(null);
-  const [time, setTime] = useState(timeCount);
-  const [startEndingSound, setStartEndingSound] = useState(false);
-  const [paused, setPaused] = useState(false);
+const CountdownTimer = React.forwardRef(
+  ({ timeCount = 10, onTimerComplete = () => {} }, ref) => {
+    const [tickTimeout, setTickTimeout] = useState(null);
+    const [gameEndSound, setGameEndSound] = useState(null);
+    const [time, setTime] = useState(timeCount);
+    const [startEndingSound, setStartEndingSound] = useState(false);
+    const [paused, setPaused] = useState(true);
+    const containerRef = useRef(null);
 
-  useEffect(() => {
-    setGameEndSound(new Audio("/audio/endCountdown.mp3"));
-  }, []);
+    useEffect(() => {
+      setGameEndSound(new Audio("/audio/endCountdown.mp3"));
+    }, []);
 
-  useEffect(() => {
-    const timerEndpoints = {
-      reset: () => {
-        // reset timer
-        clearTimeout(tickTimeout);
-        setPaused(false);
-        setTime(timeCount);
-        setStartEndingSound(false);
-      },
-
-      pause: () => {
-        // pause timer
-        clearTimeout(tickTimeout);
-        setPaused(true);
-      },
+    const reset = () => {
+      // reset timer
+      clearTimeout(tickTimeout);
+      setPaused(true);
+      setTime(timeCount);
+      setStartEndingSound(false);
     };
 
-    onTimerInitialize(timerEndpoints);
-  }, []);
-
-  function tick() {
-    clearTimeout(tickTimeout);
-    setTickTimeout(
-      setTimeout(() => {
-        setTime(time - 1);
-      }, 1000)
-    );
-  }
-
-  useEffect(() => {
-    if (paused) {
-      return;
-    }
-
-    if (time <= 0) {
-      setStartEndingSound(false);
+    const pause = () => {
+      // pause timer
       clearTimeout(tickTimeout);
-      onTimerComplete();
-      return;
+      if (containerRef.current) {
+        containerRef.current.classList.add(styles.paused);
+        containerRef.current.classList.remove(styles.running);
+      }
+      setPaused(true);
+      setStartEndingSound(false);
+    };
+
+    const start = () => {
+      // start timer
+      clearTimeout(tickTimeout);
+      if (containerRef.current) {
+        containerRef.current.classList.add(styles.running);
+        containerRef.current.classList.remove(styles.paused);
+      }
+      setPaused(false);
+    };
+
+    const resetAndStart = () => {
+      clearTimeout(tickTimeout);
+      setTime(timeCount);
+      if (containerRef.current) {
+        containerRef.current.classList.remove(styles.paused);
+        containerRef.current.classList.add(styles.running);
+      }
+      setStartEndingSound(false);
+      setPaused(false);
+    };
+
+    useImperativeHandle(ref, () => ({
+      reset,
+      pause,
+      start,
+      resetAndStart,
+    }));
+
+    function tick() {
+      clearTimeout(tickTimeout);
+      setTickTimeout(
+        setTimeout(() => {
+          setTime(time - 1);
+        }, 1000)
+      );
     }
 
-    if (!startEndingSound && time <= 4) {
-      setStartEndingSound(true);
-    }
+    useEffect(() => {
+      if (paused) {
+        return;
+      }
 
-    tick();
-  }, [time, paused]);
+      if (time <= 0) {
+        clearTimeout(tickTimeout);
+        onTimerComplete();
+        return;
+      }
 
-  useEffect(() => {
-    if (gameEndSound !== null) {
-      // gameEndSound.play();
-    }
+      if (!startEndingSound && time <= 4) {
+        setStartEndingSound(true);
+      }
 
-    return () => {
-      if (gameEndSound) {
+      tick();
+    }, [time, paused]);
+
+    useEffect(() => {
+      if (gameEndSound == null) return;
+
+      if (startEndingSound) {
+        gameEndSound.play();
+        gameEndSound.addEventListener("ended", () => {
+          setStartEndingSound(false);
+        });
+      } else {
         gameEndSound.pause();
       }
-    };
-  }, [startEndingSound]);
 
-  return (
-    <div className={styles.countdown_timer}>
-      <div className={styles.countdown_timer__time}>
+      return () => {
+        if (gameEndSound) {
+          gameEndSound.pause();
+        }
+      };
+    }, [startEndingSound]);
+
+    return (
+      <div className={styles.countdown_timer} tabIndex={0} ref={containerRef}>
+        <div className={styles.countdown_timer__time}>{time}</div>
         <svg className={styles.svg_circle}>
-          <circle r="2rem" cx="3.5rem" cy="3.5rem" />
+          <circle
+            r="45%"
+            cx="50%"
+            cy="50%"
+            className={styles.svg_spinner_path}
+          />
+          <circle r="45%" cx="50%" cy="50%" className={styles.svg_spinner} />
         </svg>
-        <Typography variant="h5">{time}</Typography>
       </div>
-    </div>
-  );
-}
+    );
+  }
+);
+
+export default CountdownTimer;

@@ -3,17 +3,14 @@ import Quiz from "../../../src/pages/Quiz";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-export default function SlugQuiz({ questions, questionLoadError }) {
-  const router = useRouter();
-  const { quiz } = router.query;
-
+export default function SlugQuiz({ questions, quiz, loadError }) {
   return (
     <>
       {quiz == undefined ? (
         <p>loading...</p>
       ) : (
         <div>
-          <Quiz slug={quiz} questions={questions} />
+          <Quiz quiz={quiz} questions={questions} loadError={loadError} />
         </div>
       )}
     </>
@@ -26,22 +23,30 @@ export async function getServerSideProps(context) {
   const questionsAPI = `https://vocabulary-strapi-cms.herokuapp.com/quiz/slug/${quiz}/randomquestion?count=10`;
   const questionsResponse = await axios.get(questionsAPI);
 
-  const { status, data } = questionsResponse;
+  const quizDetailAPI = `https://vocabulary-strapi-cms.herokuapp.com/quiz/slug/${quiz}/`;
+  const quizDetailResponse = await axios.get(quizDetailAPI);
+
+  const { status: statusQuestions, data: dataQuestions } = questionsResponse;
+  const { status: statusQuizDetail, data: dataQuizDetail } = quizDetailResponse;
+
   if (
-    status === 200 &&
-    !Object.keys(data).includes("error") &&
-    Object.keys(data).includes("questions")
+    statusQuestions === 200 &&
+    statusQuizDetail === 200 &&
+    !Object.keys(dataQuestions).includes("error") &&
+    !Object.keys(dataQuizDetail).includes("error") &&
+    Object.keys(dataQuestions).includes("questions")
   ) {
     return {
       props: {
-        questions: data.questions,
+        questions: dataQuestions.questions,
+        quiz: dataQuizDetail,
       },
     };
   }
 
   return {
     props: {
-      questionLoadError: true,
+      loadError: true,
     },
   };
 }
