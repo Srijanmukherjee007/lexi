@@ -40,38 +40,6 @@ function QuizList() {
             styles={styles}
           />
         ))}
-        {data.quizzes.map((quiz, key) => (
-          <QuizItem
-            key={key}
-            title={quiz.name}
-            url={"/quizzes/mode/" + quiz.slug}
-            styles={styles}
-          />
-        ))}
-        {data.quizzes.map((quiz, key) => (
-          <QuizItem
-            key={key}
-            title={quiz.name}
-            url={"/quizzes/mode/" + quiz.slug}
-            styles={styles}
-          />
-        ))}
-        {data.quizzes.map((quiz, key) => (
-          <QuizItem
-            key={key}
-            title={quiz.name}
-            url={"/quizzes/mode/" + quiz.slug}
-            styles={styles}
-          />
-        ))}
-        {data.quizzes.map((quiz, key) => (
-          <QuizItem
-            key={key}
-            title={quiz.name}
-            url={"/quizzes/mode/" + quiz.slug}
-            styles={styles}
-          />
-        ))}
       </div>
     </>
   );
@@ -87,8 +55,7 @@ export default function Quizzes() {
           minHeight: "100vh",
           flexDirection: "column",
           justifyContent: "space-between",
-        }}
-      >
+        }}>
         <Container style={{ padding: "60px 3em 0 3em", margin: "0" }}>
           <QuizList />
         </Container>

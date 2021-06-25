@@ -1,30 +1,42 @@
+$footer-background: #5c6faa;
+
+.children {
+  padding-top: 2em;
+  background-color: $footer-background;
+}
+
 .footer {
-  background-color: #5c6faa;
+  display: flex;
+
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
   padding: 3em 5em;
   margin-top: auto;
-  display: grid;
-  grid-template-columns: auto auto;
-  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  background-color: $footer-background;
 
-  .footer__section_right {
-    font-size: clamp(0.5rem, 3vw, 1.2rem);
-    display: flex;
-    justify-content: flex-end;
-    // width: max-content;
+  .footer__section {
+    position: relative;
+    margin: 5px;
+
     a {
       display: flex;
+      align-items: center;
+      position: relative;
       color: #fff;
-      font-size: clamp(0.5rem, 2vw, 1rem);
-
+      font-size: 1rem;
       margin-bottom: 10px;
-      padding-left: 5px;
+      transition: 100ms ease;
+
+      &[href]:not(.footer__section__header):hover {
+        color: rgb(201, 201, 201);
+      }
 
       &.footer__section__header {
         font-weight: bold;
-        font-size: clamp(0.5rem, 5vw, 1.5rem);
-        position: relative;
+        font-size: 1.35rem;
         width: max-content;
-        padding-left: 0;
 
         &::after {
           content: "";
@@ -32,43 +44,16 @@
           bottom: -5px;
           left: 0;
           width: 100%;
-          height: 2px;
+          height: 3px;
           border-radius: 10px;
           background-color: currentColor;
         }
       }
     }
-  }
-  .footer__section_left {
-    font-size: clamp(0.5rem, 2vw, 1.2rem);
-    display: flex;
-    // width: max-content;
 
-    a {
-      display: flex;
-      font-size: clamp(0.5rem, 2vw, 1rem);
-      color: #fff;
-      margin-bottom: 10px;
-      padding-left: 5px;
-
-      &.footer__section__header {
-        font-weight: bold;
-        font-size: clamp(0.5rem, 5vw, 1.5rem);
-        position: relative;
-        width: max-content;
-        padding-left: 0;
-
-        &::after {
-          content: "";
-          position: absolute;
-          bottom: -5px;
-          left: 0;
-          width: 100%;
-          height: 2px;
-          border-radius: 10px;
-          background-color: currentColor;
-        }
-      }
+    .icon {
+      margin-right: 5px;
+      position: relative;
     }
   }
 }
@@ -83,6 +68,6 @@
 
 @media screen and (max-width: 640px) {
   .footer {
-    padding: 0 0;
+    padding: 2em 3em;
   }
 }
