@@ -17,9 +17,12 @@ const CountdownTimer = React.forwardRef(
     const reset = () => {
       // reset timer
       clearTimeout(tickTimeout);
+      if (containerRef.current) {
+        containerRef.current.classList.add(styles.paused);
+        containerRef.current.classList.remove(styles.running);
+      }
       setPaused(true);
       setTime(timeCount);
-      setStartEndingSound(false);
     };
 
     const pause = () => {
@@ -92,6 +95,7 @@ const CountdownTimer = React.forwardRef(
       if (gameEndSound == null) return;
 
       if (startEndingSound) {
+        gameEndSound.currentTime = 0;
         gameEndSound.play();
         gameEndSound.addEventListener("ended", () => {
           setStartEndingSound(false);
