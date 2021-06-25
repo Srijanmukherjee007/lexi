@@ -15,10 +15,10 @@ export default function QuizMode({ styles }) {
         <div className={styles.quizmode__header__text}>quiz modes</div>
       </div>
       <div className={styles.quizmode__modes}>
-        <a href="/">synonym</a>
-        <a href="/">antonym</a>
-        <a href="/">definition</a>
-        <a href="/" className={styles.quizmode__modes__more}>
+        <a href="/quizzes/mode/synonym">synonym</a>
+        <a href="/quizzes/mode/antonym">antonym</a>
+        <a href="/quizzes/mode/meaning">meaning</a>
+        <a href="/quizzes" className={styles.quizmode__modes__more}>
           more...
         </a>
       </div>
