@@ -1,0 +1,81 @@
+.html {
+  overflow-x: hidden;
+  background-color: #f0f2f7;
+}
+
+.aboutUs {
+  // padding: 2rem;
+  width: 100vw;
+  height: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .aboutWrapper {
+    padding: 2rem;
+    width: 100%;
+    display: block;
+  }
+  .aboutWrapperPurple {
+    padding: 2rem;
+    background-color: #7487c1;
+    width: 100%;
+    color: whitesmoke !important;
+    display: block;
+
+    .bigText {
+      margin: 2vh auto;
+      font-size: clamp(1.25rem, 4vw, 4rem);
+      font-weight: 800;
+      width: max-content;
+      color: whitesmoke;
+      .span2 {
+        color: #2359b2;
+      }
+      .span1 {
+        color: #7487c1;
+      }
+    }
+  }
+  .bigText {
+    margin: 2rem auto;
+    font-size: clamp(1.25rem, 4vw, 4rem);
+    font-weight: 800;
+    width: max-content;
+    color: #242424;
+    .span2 {
+      color: #2359b2;
+    }
+    .span1 {
+      color: #7487c1;
+    }
+  }
+  .typographyBody {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: clamp(1rem, 1.5vw, 1.8rem);
+  }
+
+  .creditsIconsContainer {
+    width: 100%;
+    display: flex;
+    // justify-content: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    .creditIcon {
+      margin: 10px;
+      height: 80px;
+      width: 80px;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .aboutUs {
+    height: 30%;
+    display: flex;
+  }
+}
