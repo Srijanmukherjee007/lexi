@@ -143,6 +143,68 @@
   }
 }
 
+.quiz_result {
+  width: min(600px + 20vw, 100%);
+  margin: auto;
+  margin-bottom: 50px;
+  padding: 1rem 3rem;
+  text-align: center;
+  background-color: rgb(241, 241, 241);
+
+  .quiz_score {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    span:first-child {
+    }
+
+    span:nth-child(2) {
+      font-size: 1.5rem;
+    }
+
+    span:last-child {
+      font-size: 1.45rem;
+    }
+  }
+
+  .quiz_time_taken {
+    text-transform: uppercase;
+    margin-bottom: 20px;
+
+    span {
+      display: block;
+      text-transform: lowercase;
+      font-style: italic;
+      font-size: 1.75rem;
+    }
+  }
+
+  button {
+    margin: 5px;
+    &.quiz_restart_btn {
+      background-color: rgb(24, 24, 24);
+      color: #fff;
+    }
+
+    &.quiz_quizzes_btn {
+      border: 1px solid #242424;
+      color: #242424;
+    }
+  }
+
+  .quiz__name {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+
+    span {
+      background-color: #242424;
+      color: #fff;
+      padding: 5px;
+      border-radius: 5px;
+    }
+  }
+}
+
 @media screen and (max-width: 620px) {
   .quiz {
     .question_container {
