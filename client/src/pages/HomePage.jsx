@@ -52,7 +52,11 @@ export default function Home() {
         {/* <QuizCount /> */}
         <Footer>
           <div className={styles.footer__call_to_action}>
-            <Button className={styles.call_to_action_button}>
+            <Button
+              className={styles.call_to_action_button}
+              onClick={() => {
+                window.location.href = "/quizzes";
+              }}>
               get started
             </Button>
             <Button
@@ -60,7 +64,9 @@ export default function Home() {
                 styles.call_to_action_button,
                 styles.call_to_action_button_quick_test,
               ])}
-            >
+              onClick={() => {
+                window.location.href = "/quizzes/mode/synonym";
+              }}>
               quick test
             </Button>
           </div>

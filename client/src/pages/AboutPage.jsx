@@ -2,7 +2,6 @@ import Footer from "@components/Commons/Footer";
 import Navbar from "@components/Commons/Navbar";
 import Head from "next/head";
 import { Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import theme from "src/theme";
 import styles from "@styles/AboutPage.module.scss";
 import Image from "next/image";
@@ -73,14 +72,6 @@ export default function AboutPage() {
           <div className={styles.aboutWrapper}>
             <Typography className={styles.bigText}>Credits</Typography>
             <div>
-              {/* <div>
-                <Typography className={styles.typographyBody}>
-                  Illustrations from:
-                  <br />
-                  <a href="http://illustrations.co/">illustations.co</a>
-                  <br />
-                </Typography>
-              </div> */}
               <div className={styles.creditsIconsContainer}>
                 <CreditIcon
                   src="/images/apollo.svg"
@@ -132,7 +123,7 @@ export default function AboutPage() {
                   className={styles.creditIcon}
                 />
                 <CreditIcon
-                  src="/images/storyblok.svg"
+                  src="/images/storyblocks.png"
                   width={100}
                   height={100}
                   alt="credit"

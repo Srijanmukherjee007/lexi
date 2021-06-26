@@ -18,6 +18,8 @@ export default function About({ styles }) {
         Lexi is an online app for you to take quizzes that expands your
         vocabulary. Let's be real, vocabulary is hard, but we have designed our
         quizzes to help you improve!
+        <br />
+        <a href="/about">Learn More</a>
       </div>
     </div>
   );

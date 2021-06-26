@@ -1,11 +1,14 @@
 import React from "react";
-import Quiz from "../../../src/pages/Quiz";
-import { useRouter } from "next/router";
+import Quiz from "@pages/Quiz";
 import axios from "axios";
+import Head from "next/head";
 
 export default function SlugQuiz({ questions, quiz, loadError }) {
   return (
     <>
+      <Head>
+        <title>Quiz | Lexi</title>
+      </Head>
       {quiz == undefined ? (
         <p>loading...</p>
       ) : (

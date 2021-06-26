@@ -25,6 +25,7 @@
       margin: 0;
       padding: 0;
       display: flex;
+      justify-content: right;
 
       li {
         a {
@@ -56,5 +57,24 @@
 
   .navbar__title {
     font-size: 2em;
+  }
+}
+
+@media screen and (max-width: 565px) {
+  .navbar {
+    padding: 1em 2em;
+    .navbar__nav {
+      .navbar__nav__links {
+        li a {
+          font-size: 0.9em;
+          padding: 8px 15px;
+          margin-left: 3px;
+        }
+      }
+    }
+
+    .navbar__title {
+      font-size: 1.8em;
+    }
   }
 }
