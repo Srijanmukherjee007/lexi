@@ -127,5 +127,5 @@ const CountdownTimer = React.forwardRef(
     );
   }
 );
-
+CountdownTimer.displayName = "CountdownTimer";
 export default CountdownTimer;

@@ -25,7 +25,7 @@ export default function Navbar({ innerRef, activeNavLink = null }) {
       <div className={styles.navbar__nav}>
         <div className={styles.navbar__title}>
           <div className={styles.navbar__logo}>
-            <Image src="/images/lexi.svg" width={57} height={36} />
+            <Image src="/images/lexi.svg" alt="logo" width={57} height={36} />
           </div>
           Lexi
         </div>

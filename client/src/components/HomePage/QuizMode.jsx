@@ -1,5 +1,6 @@
 import Image from "next/image";
 import clsx from "clsx";
+import Link from "next/link";
 
 export default function QuizMode({ styles }) {
   return (
@@ -15,12 +16,21 @@ export default function QuizMode({ styles }) {
         <div className={styles.quizmode__header__text}>quiz modes</div>
       </div>
       <div className={styles.quizmode__modes}>
-        <a href="/quizzes/mode/synonym">synonym</a>
-        <a href="/quizzes/mode/antonym">antonym</a>
-        <a href="/quizzes/mode/meaning">meaning</a>
-        <a href="/quizzes" className={styles.quizmode__modes__more}>
-          more...
-        </a>
+        <Link href="/quizzes/mode/synonym">
+          <a>synonym</a>
+        </Link>
+
+        <Link href="/quizzes/mode/antonym">
+          <a>antonym</a>
+        </Link>
+
+        <Link href="/quizzes/mode/meaning">
+          <a>meaning</a>
+        </Link>
+
+        <Link href="/quizzes">
+          <a className={styles.quizmode__modes__more}>more...</a>
+        </Link>
       </div>
     </div>
   );

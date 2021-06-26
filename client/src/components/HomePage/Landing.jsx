@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Button } from "@material-ui/core";
 import clsx from "clsx";
+import Link from "next/link";
 
 export default function Landing({ styles, innerRef }) {
   return (
@@ -9,15 +10,25 @@ export default function Landing({ styles, innerRef }) {
         <div className={styles.landing__nav}>
           <div className={styles.landing__title}>
             <div className={styles.landing__logo}>
-              <Image src={"/images/lexi.svg"} width={62} height={36} />
+              <Image
+                src={"/images/lexi.svg"}
+                width={62}
+                height={36}
+                alt="logo"
+              />
             </div>
             Lexi
           </div>
           <ul className={styles.landing__nav__links}>
             <li>
               <a className={styles.landing__nav__link__active}>Home</a>
-              <a href="/quizzes">Quizzes</a>
-              <a href="/about">About</a>
+              <Link href="/quizzes">
+                <a>Quizzes</a>
+              </Link>
+
+              <Link href="/about">
+                <a>About</a>
+              </Link>
             </li>
           </ul>
         </div>

@@ -43,16 +43,17 @@ export default function AboutPage() {
           <div className={styles.aboutWrapperPurple}>
             <Typography className={styles.bigText}>Why Lexi?</Typography>
             <Typography className={styles.typographyBody}>
-              Lexi's developers are both from non-English-speaking countries.
+              Lexi&apos;s developers are both from non-English-speaking
+              countries.
               <br />
-              Let's be real, the hardest part of learing a language is getting
-              used to the common words and expressions native people use. The
-              toughest English tests demands' are even greater: all the lexis
-              they used were probaby pulled from random pages of some Ivy League
-              college textbook - and crunching the dictionaries to learn them is
-              demoralizing for some. That's why we created this, to aid English
-              learners out there searching for another way to boost their
-              vocabulary through fun quizzes.
+              Let&apos;s be real, the hardest part of learing a language is
+              getting used to the common words and expressions native people
+              use. The toughest English tests demands&apos; are even greater:
+              all the lexis they used were probaby pulled from random pages of
+              some Ivy League college textbook - and crunching the dictionaries
+              to learn them is demoralizing for some. That&apos;s why we created
+              this, to aid English learners out there searching for another way
+              to boost their vocabulary through fun quizzes.
             </Typography>
           </div>
         </div>
@@ -64,7 +65,7 @@ export default function AboutPage() {
               <br />
               Painful hours sitting looking up the dictionary for new words
               <br />
-              Merriam-Webster's quizzes
+              Merriam-Webster&apos;s quizzes
             </Typography>
           </div>
         </div>

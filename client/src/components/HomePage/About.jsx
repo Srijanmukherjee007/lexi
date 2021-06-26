@@ -1,5 +1,6 @@
 import Image from "next/image";
 import clsx from "clsx";
+import Link from "next/link";
 
 export default function About({ styles }) {
   return (
@@ -16,10 +17,12 @@ export default function About({ styles }) {
       </div>
       <div className={styles.about__text}>
         Lexi is an online app for you to take quizzes that expands your
-        vocabulary. Let's be real, vocabulary is hard, but we have designed our
-        quizzes to help you improve!
+        vocabulary. Let&apos;s be real, vocabulary is hard, but we have designed
+        our quizzes to help you improve!
         <br />
-        <a href="/about">Learn More</a>
+        <Link href="/about">
+          <a>Learn More</a>
+        </Link>
       </div>
     </div>
   );
