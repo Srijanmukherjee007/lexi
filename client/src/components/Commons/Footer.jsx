@@ -3,29 +3,7 @@ import CodeIcon from "@material-ui/icons/Code";
 import LinkIcon from "@material-ui/icons/Link";
 import styles from "@styles/Footer.module.scss";
 
-// const useStyles = makeStyles((theme) => ({
-//   displayContainer: {
-//     display: "flex",
-//     flexDirection: "column",
-//     margin: "1rem",
-//   },
-//   listItem: {
-//     // margin: "5px",
-//     color: "#fff",
-//     // marginBottom: "",
-//   },
-//   icons: {
-//     marginTop: "2px",
-//     color: "#fff",
-//     fontSize: "clamp(1.5rem, 4vh, 2rem)",
-//     position: "relative",
-//     paddingLleft: "0",
-//     marginBottom: "clamp(1rem, 3vh, 2rem)",
-//   },
-// }));
-
 export default function Footer({ children }) {
-  //   const classes = useStyles();
   return (
     <>
       {children ? <div className={styles.children}>{children}</div> : null}
@@ -40,9 +18,15 @@ export default function Footer({ children }) {
         </div>
         <div className={styles.footer__section}>
           <a className={styles.footer__section__header}>Support</a>
-          <a href="#link-to-contact-us-page">Contact us</a>
-          <a href="/">Report a question</a>
-          <a href="/">Report bug</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSe-oclSznzKfrLUyoMuu4FAc_5NmzxXqpH8cU_wNX8hr0BoRA/viewform?usp=sf_link">
+            Contact us
+          </a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeaLx4__Kz6889hZCz-XPci5sPwKOUqxNoWwPEKuMpR8r_7kw/viewform?usp=sf_link">
+            Report a question
+          </a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeaLx4__Kz6889hZCz-XPci5sPwKOUqxNoWwPEKuMpR8r_7kw/viewform?usp=sf_link">
+            Report a bug
+          </a>
         </div>
 
         <div className={styles.footer__section}>
@@ -58,7 +42,7 @@ export default function Footer({ children }) {
           <a href="https://github.com/therealozp/lexi">
             <CodeIcon className={styles.icon} /> Source Code
           </a>
-          <a href="https://github.com/therealozp/lexi">
+          <a href="https://devpost.com/software/lexi-axt3ei">
             <LinkIcon className={styles.icon} /> Devpost
           </a>
         </div>
