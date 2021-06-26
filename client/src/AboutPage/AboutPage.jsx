@@ -131,6 +131,13 @@ export default function AboutPage() {
                   alt="credit"
                   className={styles.creditIcon}
                 />
+                <CreditIcon
+                  src="/images/storyblok.svg"
+                  width={100}
+                  height={100}
+                  alt="credit"
+                  className={styles.creditIcon}
+                />
               </div>
             </div>
           </div>
