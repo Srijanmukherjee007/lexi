@@ -69,11 +69,11 @@ export default function Footer({ children }) {
         <Link href="https://github.com/Srijanmukherjee007">
           <a>srijan</a>
         </Link>
-        and{" "}
+        {" "}and{" "}
         <Link href="https://github.com/therealozp">
           <a>khang</a>
         </Link>
-        with ❤️
+        {" "}with ❤️
       </div>
     </>
   );
