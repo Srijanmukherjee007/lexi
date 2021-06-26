@@ -1,6 +1,7 @@
 import styles from "@styles/Navbar.module.scss";
 import clsx from "clsx";
-
+// import logo from "../../../public/images/lexi.svg";
+import Image from "next/image";
 const links = [
   {
     url: "/",
@@ -23,7 +24,9 @@ export default function Navbar({ innerRef, activeNavLink = null }) {
   return (
     <div className={styles.navbar} ref={innerRef}>
       <div className={styles.navbar__nav}>
-        <div className={styles.navbar__title}>Lexi</div>
+        <div className={styles.navbar__title}>
+          <Image src={"/images/lexi.svg"} layout="fill" />
+        </div>
         <ul className={styles.navbar__nav__links}>
           {links.map((link, key) => (
             <li key={key}>
@@ -32,8 +35,7 @@ export default function Navbar({ innerRef, activeNavLink = null }) {
                 className={clsx({
                   [styles.navbar__nav__link__active]:
                     activeNavLink === link.name,
-                })}
-              >
+                })}>
                 {link.title}
               </a>
             </li>
