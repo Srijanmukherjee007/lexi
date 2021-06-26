@@ -1,5 +1,6 @@
 import React from "react";
 import { Container } from "@material-ui/core";
+import ErrorIcon from "@material-ui/icons/Error";
 import Footer from "@components/Commons/Footer";
 import Navbar from "@components/Commons/Navbar";
 import QuizItem from "@components/Quizzes/QuizItem";
@@ -7,7 +8,22 @@ import styles from "@styles/Quizzes.module.scss";
 
 function QuizList({ quizzes, error }) {
   if (error) {
-    return <p>something went wrong</p>;
+    return (
+      <p
+        style={{
+          fontSize: "0.9em",
+          color: "#f00",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "3em",
+          width: "100%",
+        }}>
+        <ErrorIcon />
+        {error}
+      </p>
+    );
   }
 
   return (
