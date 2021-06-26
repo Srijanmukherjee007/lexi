@@ -81,6 +81,13 @@ export default function AboutPage() {
                   className={styles.creditIcon}
                 />
                 <CreditIcon
+                  src="/images/graphql.svg"
+                  width={100}
+                  height={100}
+                  alt="credit"
+                  className={styles.creditIcon}
+                />
+                <CreditIcon
                   src="/images/react.svg"
                   width={100}
                   height={100}

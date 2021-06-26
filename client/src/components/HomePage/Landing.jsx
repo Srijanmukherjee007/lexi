@@ -7,7 +7,9 @@ export default function Landing({ styles, innerRef }) {
     <div ref={innerRef}>
       <div className={styles.landing}>
         <div className={styles.landing__nav}>
-          <div className={styles.landing__title}>Lexi</div>
+          <div className={styles.landing__title}>
+            <Image src={"/images/lexi1.svg"} width={62} height={40} />
+          </div>
           <ul className={styles.landing__nav__links}>
             <li>
               <a className={styles.landing__nav__link__active}>Home</a>
