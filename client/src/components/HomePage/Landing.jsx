@@ -31,7 +31,11 @@ export default function Landing({ styles, innerRef }) {
             <p className={styles.landing__call_to_action_catchphrase}>
               Improve your vocabulary
             </p>
-            <Button className={styles.landing__call_to_action_button}>
+            <Button
+              className={styles.landing__call_to_action_button}
+              onClick={() => {
+                window.location.href = "/quizzes";
+              }}>
               get started
             </Button>
             <Button
@@ -39,7 +43,9 @@ export default function Landing({ styles, innerRef }) {
                 styles.landing__call_to_action_button,
                 styles.landing__call_to_action_button_quick_test,
               ])}
-            >
+              onClick={() => {
+                window.location.href = "/quizzes/mode/synonym";
+              }}>
               quick test
             </Button>
           </div>
