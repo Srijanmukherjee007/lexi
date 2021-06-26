@@ -47,6 +47,8 @@ export default function MyApp(props) {
   );
 }
 
+export { client as apolloClient };
+
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
