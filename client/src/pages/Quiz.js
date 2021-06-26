@@ -5,6 +5,8 @@ import Navbar from "@components/Commons/Navbar";
 import Footer from "@components/Commons/Footer";
 import Button from "@material-ui/core/Button";
 import styles from "@styles/Quiz.module.scss";
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
 import Head from "next/head";
 import clsx from "clsx";
 
@@ -36,7 +38,9 @@ export default function Quiz({ quiz, questions }) {
   const [timeTaken, setTimeTaken] = useState(0);
   const [complete, setComplete] = useState(false);
   const [lastQuestionStartTime, setLastQuestionStartTime] = useState(0);
+  const [stopConfetti, setStopConfetti] = useState(false);
   const timerRef = useRef();
+  const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   useEffect(() => {
     setNextQuestion(); // set the first question
@@ -94,6 +98,11 @@ export default function Quiz({ quiz, questions }) {
 
   const handleQuizComplete = () => {
     setComplete(true);
+
+    // stop the confetti after 20secs
+    setTimeout(() => {
+      setStopConfetti(true);
+    }, 20000);
   };
 
   const resetQuiz = () => {
@@ -170,6 +179,14 @@ export default function Quiz({ quiz, questions }) {
           </div>
         ) : (
           <div className={styles.quiz_result}>
+            {!stopConfetti && (
+              <Confetti
+                width={windowWidth}
+                height={windowHeight}
+                recycle={true}
+                run={!stopConfetti}
+              />
+            )}
             <div className={styles.quiz__name}>
               <span>{quiz.name}</span> quiz
             </div>
