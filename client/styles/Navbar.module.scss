@@ -56,7 +56,15 @@
   }
 
   .navbar__title {
-    // font-size: 2em;
+    font-size: 2em;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
+    .navbar__logo {
+      margin-right: 10px;
+    }
   }
 }
 
@@ -75,6 +83,10 @@
 
     .navbar__title {
       font-size: 1.8em;
+
+      .navbar__logo {
+        display: none;
+      }
     }
   }
 }

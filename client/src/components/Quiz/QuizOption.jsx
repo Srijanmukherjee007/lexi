@@ -31,6 +31,11 @@ export default function CustomButton({
       }
     } else {
       wrong.play();
+
+      // vibrate
+      try {
+        window.navigator.vibrate(500);
+      } catch (e) {}
     }
 
     handleClick(isCorrect);

@@ -90,9 +90,16 @@
         }
       }
     }
-
     .landing__title {
-      // font-size: 2em;
+      font-size: 2em;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      display: flex;
+      flex-wrap: nowrap;
+
+      .landing__logo {
+        margin-right: 10px;
+      }
     }
 
     .landing__hero {
@@ -324,7 +331,7 @@
   }
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 440px) {
   .home {
     .landing {
       .landing__nav {
@@ -338,6 +345,7 @@
     .landing__title {
       width: 100%;
       text-align: center;
+      justify-content: center;
     }
   }
 }

@@ -28,10 +28,10 @@ export default function AboutPage() {
         <div style={{ ...theme.mixins.toolbar }} />
         <div className={styles.aboutUs}>
           <div className={styles.aboutWrapper}>
-            <Typography className={styles.bigText}>
+            <div className={styles.bigText}>
               Learn vocabulary. <span className={styles.span1}>Quickly.</span>{" "}
               <span className={styles.span2}>Effectively.</span>
-            </Typography>
+            </div>
             <Typography className={styles.typographyBody}>
               Lexi is a quiz app equipped with an ever-growing library of words
               that will give you great thrill in conquering the quest of

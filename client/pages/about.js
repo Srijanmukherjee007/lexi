@@ -1,5 +1,4 @@
-import React from "react";
 import AboutPage from "@pages/AboutPage";
-export default function about() {
+export default function About() {
   return <AboutPage />;
 }
