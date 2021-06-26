@@ -54,6 +54,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
 
       .landing__nav__links {
         list-style: none;
@@ -294,6 +295,44 @@
       .quizmode__modes {
         grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
       }
+    }
+  }
+}
+
+@media screen and (max-width: 565px) {
+  .home {
+    .landing {
+      .landing__nav {
+        .landing__nav__links {
+          li {
+            padding-left: 0;
+
+            a {
+              font-size: 0.9em;
+              padding: 5px 15px;
+              margin-left: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .home {
+    .landing {
+      .landing__nav {
+        justify-content: center;
+        .landing__nav__links {
+          margin-top: 5px;
+        }
+      }
+    }
+
+    .landing__title {
+      width: 100%;
+      text-align: center;
     }
   }
 }
