@@ -5,6 +5,7 @@ import { Typography } from "@material-ui/core";
 import theme from "src/theme";
 import styles from "@styles/AboutPage.module.scss";
 import Image from "next/image";
+import Link from "next/link";
 
 function CreditIcon({ src, width, height, alt, className }) {
   return (
@@ -66,6 +67,16 @@ export default function AboutPage() {
               Painful hours sitting looking up the dictionary for new words
               <br />
               Merriam-Webster&apos;s quizzes
+              <br />
+              Like the art? Check out{" "}
+              <Link href="http://illustrations.co/">
+                <a className={styles.links}>illustrations.co</a>
+              </Link>{" "}
+              and{" "}
+              <Link href="https://instagram.com/m0ne_t?utm_medium=copy_link">
+                <a className={styles.links}>m0ne_t</a>
+              </Link>{" "}
+              on Instagram!
             </Typography>
           </div>
         </div>

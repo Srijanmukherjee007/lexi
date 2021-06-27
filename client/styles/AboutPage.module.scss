@@ -34,6 +34,14 @@
         color: #7487c1;
       }
     }
+    .links {
+      border-bottom: 1px solid #f0f2f7;
+      transition: all 150ms ease;
+      &[href]:hover {
+        color: rgb(201, 201, 201);
+        border-bottom: 1px solid rgb(201, 201, 201);
+      }
+    }
   }
   .bigText {
     margin: 2rem auto;
