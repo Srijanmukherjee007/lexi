@@ -31,12 +31,12 @@ The long version is: Lexi uses data fetched from Dictionaries' API to make our q
 
 ## ⚡ Challenges we ran into
 
-**No greatness comes without hardship.**
+**No greatness comes without hardship.**\
 In Lexi's case, it was the hours spent on reworking the UI to make everything look nice and user-friendly for both desktop and mobile users, the sleepless nights getting the server and databases up, the bug-fixing sessions that lasted too deep into the night... it was all of that - our blood, sweat, and tears shed to make a working product.
 
 ## ⚡Accomplishments that we're proud of
 
-**Our greatest obstacles gave rise to our proudest achievements.**
+**Our greatest obstacles gave rise to our proudest achievements.**\
 The UI is now to our taste - subtle, gentle, and appealing, our databases are running like clockwork, and Lexi has truly grown into a beautiful lady... Thinking of our disagreements over the design and making our product look nice, we are proudest of our teamwork - everything it took to make our project perfect.
 
 ## ⚡ What we learned
@@ -51,5 +51,5 @@ Well, with everything said and done, we will keep expanding Lexi's lexis and imp
 
 ## 🦄 Developers
 
-[Khang Le](https://github.com/therealozp)
+[Khang Le](https://github.com/therealozp)\
 [Srijan Mukherjee](https://github.com/Srijanmukherjee007)
