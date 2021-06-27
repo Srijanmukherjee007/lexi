@@ -8,15 +8,9 @@ See our project on [devpost](https://devpost.com/software/lexi-axt3ei)
 
 ##### Screenshots
 
-<figure>
-<img src="./screenshots/home_full.png" alt="Home page"/>
-<figure-caption>Home Page</figure-caption>
-</figure>
+[ ![](./screenshots/home_full.png) ](./screenshots/home_full.png)
 
-<figure>
-<img src="./screenshots/quizzes.png" alt="Quizes page"/>
-<figure-caption>Quizzes Listing Page</figure-caption>
-</figure>
+[ ![](./screenshots/quizzes.png) ](./screenshots/quizzes.png)
 
 ## ⚡ Inspiration
 
