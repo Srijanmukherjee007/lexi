@@ -2,8 +2,8 @@
 
 _Learn vocabulary. **Quickly**. **Effectively**._
 
-Try out our webapp at [lexi.vercel.app](lexi.vercel.app)\
-Backend Hosted on [heroku](vocabulary-strapi-cms.herokuapp.com)\
+Try out our webapp at [lexi.vercel.app](https://lexi.vercel.app)\
+Backend Hosted on [heroku](https://vocabulary-strapi-cms.herokuapp.com)\
 See our project on [devpost](https://devpost.com/software/lexi-axt3ei)
 
 ##### Screenshots
