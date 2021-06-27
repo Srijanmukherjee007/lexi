@@ -12,17 +12,11 @@ export default function Footer({ children }) {
           <Link href="/quizzes">
             <a className={styles.footer__section__header}>Quizzes</a>
           </Link>
-          <Link href="/quizzes/mode/synonym">
-            <a>Synonym</a>
-          </Link>
+          <a href="/quizzes/mode/synonym">Synonym</a>
 
-          <Link href="/quizzes/mode/antonym">
-            <a>Antonym</a>
-          </Link>
+          <a href="/quizzes/mode/antonym">Antonym</a>
 
-          <Link href="/quizzes/mode/meaning">
-            <a>Definition</a>
-          </Link>
+          <a href="/quizzes/mode/meaning">Definition</a>
         </div>
         <div className={styles.footer__section}>
           <a className={styles.footer__section__header}>Support</a>
@@ -68,12 +62,12 @@ export default function Footer({ children }) {
         developed by{" "}
         <Link href="https://github.com/Srijanmukherjee007">
           <a>srijan</a>
-        </Link>
-        {" "}and{" "}
+        </Link>{" "}
+        and{" "}
         <Link href="https://github.com/therealozp">
           <a>khang</a>
-        </Link>
-        {" "}with ❤️
+        </Link>{" "}
+        with ❤️
       </div>
     </>
   );
